@@ -1,4 +1,8 @@
 User-agent: *
 Disallow:
 Allow: /
+<<<<<<< HEAD
 Sitemap: https://canulabs.neocities.org/sitemap.xml
+=======
+Sitemap: https://canuconde.github.io/sitemap.xml
+>>>>>>> dfedf99 (Primer build de zola)

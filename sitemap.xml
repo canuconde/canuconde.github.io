@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+<<<<<<< HEAD
         <loc>https://canulabs.neocities.org/</loc>
     </url>
     <url>
@@ -19,5 +20,25 @@
     </url>
     <url>
         <loc>https://canulabs.neocities.org/regular-page/</loc>
+=======
+        <loc>https://canuconde.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/blog/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/blog/sample-post-1/</loc>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/blog/sample-post-2/</loc>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/regular-page/</loc>
+>>>>>>> dfedf99 (Primer build de zola)
     </url>
 </urlset>
