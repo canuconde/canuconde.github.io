@@ -26,4 +26,13 @@
         <loc>https://canuconde.github.io/blog/sample-post-2/</loc>
         <lastmod>2026-01-28</lastmod>
     </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/demo/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/sample/</loc>
+    </url>
 </urlset>
