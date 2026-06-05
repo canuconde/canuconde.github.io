@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>El Canú - C++</title>
+    <subtitle>Mi sitio personal</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://canuconde.github.io/tags/c/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://canuconde.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-03-02T00:00:00+00:00</updated>
+    <id>https://canuconde.github.io/tags/c/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Manejo de errores en C++</title>
+        <published>2026-03-02T00:00:00+00:00</published>
+        <updated>2026-03-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              canu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://canuconde.github.io/blog/manejo-de-errores-en-c/"/>
+        <id>https://canuconde.github.io/blog/manejo-de-errores-en-c/</id>
+        
+        <content type="html" xml:base="https://canuconde.github.io/blog/manejo-de-errores-en-c/">&lt;h1 id=&quot;manejo-de-errores-en-c-comparacion-de-estrategias&quot;&gt;Manejo de errores en C++: comparación de estrategias&lt;&#x2F;h1&gt;
+&lt;p&gt;Una de las decisiones más importantes al diseñar una aplicación en C++ es cómo manejar los errores. El lenguaje ofrece varias alternativas, cada una con ventajas, desventajas y casos de uso específicos.&lt;&#x2F;p&gt;
+&lt;p&gt;En este artículo vamos a comparar:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Códigos de retorno&lt;&#x2F;li&gt;
+&lt;li&gt;Parámetros de salida&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;std::optional&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;std::expected&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Excepciones&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;1-codigos-de-retorno&quot;&gt;1. Códigos de retorno&lt;&#x2F;h1&gt;
+&lt;p&gt;La técnica más antigua, heredada del lenguaje C.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; abrirArchivo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;string&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #EBA0AC;font-style: italic;&quot;&gt; nombre&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; false&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Uso:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;!&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;abrirArchivo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;datos.txt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;    &#x2F;&#x2F; manejar error&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;También es común devolver un entero:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; abrirArchivo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;donde:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;0  = éxito&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-1 = archivo inexistente&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-2 = permiso denegado&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;ventajas&quot;&gt;Ventajas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Muy simple.&lt;&#x2F;li&gt;
+&lt;li&gt;Muy eficiente.&lt;&#x2F;li&gt;
+&lt;li&gt;Compatible con cualquier compilador.&lt;&#x2F;li&gt;
+&lt;li&gt;No utiliza excepciones.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;desventajas&quot;&gt;Desventajas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Es fácil olvidar verificar errores.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;abrirArchivo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;datos.txt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt; &#x2F;&#x2F; nadie verificó el resultado&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Los errores se propagan mal.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A -&amp;gt; B -&amp;gt; C -&amp;gt; D&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Cada función debe verificar y reenviar el error manualmente.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;2-parametro-de-salida-codigo-de-retorno&quot;&gt;2. Parámetro de salida + código de retorno&lt;&#x2F;h1&gt;
+&lt;p&gt;Muy común en APIs antiguas.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; dividir&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #EBA0AC;font-style: italic;&quot;&gt; a&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #EBA0AC;font-style: italic;&quot;&gt; b&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #EBA0AC;font-style: italic;&quot;&gt; resultado&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;b &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;==&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 0&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;        return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; false&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    resultado &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; a &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt; b&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; true&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Uso:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; r&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;dividir&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;10&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;span&gt; r&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;ventajas-1&quot;&gt;Ventajas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Muy eficiente.&lt;&#x2F;li&gt;
+&lt;li&gt;No requiere asignaciones adicionales.&lt;&#x2F;li&gt;
+&lt;li&gt;Fácil de implementar.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;desventajas-1&quot;&gt;Desventajas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Las firmas son menos claras.&lt;&#x2F;li&gt;
+&lt;li&gt;Se vuelve incómodo cuando hay múltiples valores de salida.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;3-std-optional&quot;&gt;3. &lt;code&gt;std::optional&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Disponible desde C++17.&lt;&#x2F;p&gt;
+&lt;p&gt;Representa un valor que puede existir o no existir.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;optional&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;Usuario&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;buscarUsuario&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; id&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Uso:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;auto&lt;&#x2F;span&gt;&lt;span&gt; u &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; buscarUsuario&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;5&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;u&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;que-representa&quot;&gt;¿Qué representa?&lt;&#x2F;h2&gt;
+&lt;p&gt;Una ausencia válida de resultado.&lt;&#x2F;p&gt;
+&lt;p&gt;Por ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;buscarCliente&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;puede devolver:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cliente encontrado&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;o&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cliente inexistente&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;y ambas situaciones son normales.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ventajas-2&quot;&gt;Ventajas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Muy expresivo.&lt;&#x2F;li&gt;
+&lt;li&gt;Fácil de usar.&lt;&#x2F;li&gt;
+&lt;li&gt;El compilador obliga a considerar la ausencia de valor.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;desventajas-2&quot;&gt;Desventajas&lt;&#x2F;h2&gt;
+&lt;p&gt;No informa la causa.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;nullopt&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;no indica si:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;faltó el archivo&lt;&#x2F;li&gt;
+&lt;li&gt;hubo un problema de permisos&lt;&#x2F;li&gt;
+&lt;li&gt;falló la base de datos&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;4-std-expected&quot;&gt;4. &lt;code&gt;std::expected&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Introducido en C++23.&lt;&#x2F;p&gt;
+&lt;p&gt;Permite devolver un resultado o un error tipado.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;expected&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;Usuario&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;span&gt; Error&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;buscarUsuario&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; id&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Uso:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;auto&lt;&#x2F;span&gt;&lt;span&gt; r &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; buscarUsuario&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;5&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;!&lt;&#x2F;span&gt;&lt;span&gt;r&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; r&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;().&lt;&#x2F;span&gt;&lt;span&gt;message&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;ventajas-3&quot;&gt;Ventajas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Explícito.&lt;&#x2F;li&gt;
+&lt;li&gt;Tipado.&lt;&#x2F;li&gt;
+&lt;li&gt;No utiliza excepciones.&lt;&#x2F;li&gt;
+&lt;li&gt;Obliga a manejar errores.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;desventajas-3&quot;&gt;Desventajas&lt;&#x2F;h2&gt;
+&lt;p&gt;La propagación sigue siendo manual.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;auto&lt;&#x2F;span&gt;&lt;span&gt; r &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; cargar&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;!&lt;&#x2F;span&gt;&lt;span&gt;r&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;unexpected&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;r&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;());&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;5-excepciones&quot;&gt;5. Excepciones&lt;&#x2F;h1&gt;
+&lt;p&gt;La técnica más conocida de C++.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;throw&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;runtime_error&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;error&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Captura:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;try&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;exception&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt; e&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;ventajas-4&quot;&gt;Ventajas&lt;&#x2F;h2&gt;
+&lt;p&gt;Los errores se propagan automáticamente.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;↓&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;B&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;↓&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;C&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;↓&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;D&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Si D falla:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;throw&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;el error puede llegar directamente hasta A.&lt;&#x2F;p&gt;
+&lt;p&gt;No es necesario escribir:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;!&lt;&#x2F;span&gt;&lt;span&gt;resultado&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;en cada nivel.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;desventajas-4&quot;&gt;Desventajas&lt;&#x2F;h2&gt;
+&lt;p&gt;El flujo de errores no es visible en la firma de la función.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;guardar&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;podría lanzar una excepción y no ser evidente al leer la interfaz.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;comparacion-rapida&quot;&gt;Comparación rápida&lt;&#x2F;h1&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Método&lt;&#x2F;th&gt;&lt;th&gt;Tiene valor&lt;&#x2F;th&gt;&lt;th&gt;Tiene error detallado&lt;&#x2F;th&gt;&lt;th&gt;Obliga a verificar&lt;&#x2F;th&gt;&lt;th&gt;Propaga solo&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Return code&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;A veces&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Out parameter&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;Poco&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;optional&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;expected&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Excepciones&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;td&gt;No&lt;&#x2F;td&gt;&lt;td&gt;Sí&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;cuando-usar-cada-uno&quot;&gt;¿Cuándo usar cada uno?&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;std-optional&quot;&gt;&lt;code&gt;std::optional&lt;&#x2F;code&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Cuando la ausencia de un resultado es normal.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;buscarCliente&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Resultado posible:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;lo encontré&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;no lo encontré&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;sin que exista un error.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;std-expected&quot;&gt;&lt;code&gt;std::expected&lt;&#x2F;code&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Cuando una operación puede fallar por razones conocidas.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;abrirBaseDatos&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Posibles resultados:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ok&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;archivo inexistente&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;permiso denegado&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;base corrupta&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;excepciones&quot;&gt;Excepciones&lt;&#x2F;h2&gt;
+&lt;p&gt;Cuando ocurre algo excepcional o inesperado.&lt;&#x2F;p&gt;
+&lt;p&gt;Ejemplos:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;memoria insuficiente&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;archivo corrupto&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;invariante rota&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;o cuando no tiene sentido que cada función intermedia maneje el error.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;recomendacion-para-aplicaciones-de-escritorio&quot;&gt;Recomendación para aplicaciones de escritorio&lt;&#x2F;h1&gt;
+&lt;p&gt;Para una aplicación con wxWidgets y SQLite, una estrategia equilibrada puede ser:&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;core&quot;&gt;Core&lt;&#x2F;h2&gt;
+&lt;p&gt;Utilizar &lt;code&gt;std::expected&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Result&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;Cuenta&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ObtenerCuenta&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; id&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;interfaz-grafica&quot;&gt;Interfaz gráfica&lt;&#x2F;h2&gt;
+&lt;p&gt;Mostrar mensajes al usuario cuando se recibe un error.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;wxMessageBox&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;errores-fatales&quot;&gt;Errores fatales&lt;&#x2F;h2&gt;
+&lt;p&gt;Capturar excepciones globalmente.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;    LogError&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;    wxMessageBox&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusión&lt;&#x2F;h1&gt;
+&lt;p&gt;No existe una única estrategia correcta para todos los casos.&lt;&#x2F;p&gt;
+&lt;p&gt;Una combinación práctica para aplicaciones modernas suele ser:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;std::optional&lt;&#x2F;code&gt; para ausencia normal de datos.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;std::expected&lt;&#x2F;code&gt; para errores de negocio y acceso a datos.&lt;&#x2F;li&gt;
+&lt;li&gt;Excepciones para errores fatales o inesperados.&lt;&#x2F;li&gt;
+&lt;li&gt;Códigos de retorno únicamente en APIs de bajo nivel o por compatibilidad.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Elegir la herramienta adecuada para cada situación produce código más claro, mantenible y robusto.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Compilar con g++</title>
+        <published>2025-03-02T00:00:00+00:00</published>
+        <updated>2025-03-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              canu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://canuconde.github.io/blog/compilar-con-gpp/"/>
+        <id>https://canuconde.github.io/blog/compilar-con-gpp/</id>
+        
+        <content type="html" xml:base="https://canuconde.github.io/blog/compilar-con-gpp/">&lt;h1 id=&quot;guia-practica-de-las-opciones-mas-importantes-de-g&quot;&gt;Guía práctica de las opciones más importantes de &lt;code&gt;g++&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;code&gt;g++&lt;&#x2F;code&gt; tiene cientos de opciones, pero para la mayoría de los proyectos de escritorio en C++ (por ejemplo, usando wxWidgets y SQLite) hay un conjunto relativamente pequeño que conviene dominar.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;compilar-un-archivo-fuente&quot;&gt;Compilar un archivo fuente&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -c main.cpp&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;La opción &lt;code&gt;-c&lt;&#x2F;code&gt; indica que se compile el código pero &lt;strong&gt;sin enlazar&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Resultado:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;main.cpp -&amp;gt; main.o&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;especificar-el-nombre-de-salida&quot;&gt;Especificar el nombre de salida&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -o miapp&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;La opción &lt;code&gt;-o&lt;&#x2F;code&gt; permite definir el nombre del archivo generado.&lt;&#x2F;p&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -o contabilidad.exe&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;agregar-directorios-de-inclusion&quot;&gt;Agregar directorios de inclusión&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -IC:&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt;\w&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;xWidgets&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt;\i&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;nclude&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;La opción &lt;code&gt;-I&lt;&#x2F;code&gt; indica dónde buscar archivos de cabecera (&lt;code&gt;.h&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;Por ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;#include&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;lt;wx&#x2F;wx.h&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;agregar-directorios-de-librerias&quot;&gt;Agregar directorios de librerías&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.o -LC:&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt;\l&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;ibs&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;La opción &lt;code&gt;-L&lt;&#x2F;code&gt; indica dónde buscar librerías durante el enlazado.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;enlazar-librerias&quot;&gt;Enlazar librerías&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.o -lsqlite3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;La opción &lt;code&gt;-l&lt;&#x2F;code&gt; enlaza una librería.&lt;&#x2F;p&gt;
+&lt;p&gt;Por ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-lsqlite3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;buscará automáticamente:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;libsqlite3.a&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;o&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;libsqlite3.dll.a&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;optimizacion&quot;&gt;Optimización&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;sin-optimizacion&quot;&gt;Sin optimización&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-O0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;optimizacion-basica&quot;&gt;Optimización básica&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-O1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;optimizacion-recomendada&quot;&gt;Optimización recomendada&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-O2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;optimizacion-agresiva&quot;&gt;Optimización agresiva&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-O3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -O2 main.cpp -o app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;informacion-de-depuracion&quot;&gt;Información de depuración&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-g&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Genera información para depuradores como GDB.&lt;&#x2F;p&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -g main.cpp&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;advertencias-del-compilador&quot;&gt;Advertencias del compilador&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;advertencias-basicas&quot;&gt;Advertencias básicas&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-Wall&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;advertencias-adicionales&quot;&gt;Advertencias adicionales&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-Wextra&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;cumplimiento-estricto-del-estandar&quot;&gt;Cumplimiento estricto del estándar&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-Wpedantic&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Una combinación muy utilizada es:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-Wall&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -Wextra&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;seleccionar-estandar-de-c&quot;&gt;Seleccionar estándar de C++&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;c-17&quot;&gt;C++17&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;c++17&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;c-20&quot;&gt;C++20&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;c++20&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -std=c++20&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;enlazar-estaticamente-las-librerias-del-compilador&quot;&gt;Enlazar estáticamente las librerías del compilador&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-static-libgcc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-static-libstdc++&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Estas opciones evitan tener que distribuir DLLs como:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;libgcc_s_dw2-1.dll&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;libstdc++-6.dll&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;intentar-enlazado-completamente-estatico&quot;&gt;Intentar enlazado completamente estático&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-static&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Esto intenta enlazar todas las dependencias de forma estática.&lt;&#x2F;p&gt;
+&lt;p&gt;En Windows suele funcionar razonablemente bien. En Linux puede ser más complicado debido a dependencias del sistema.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;crear-una-libreria-compartida&quot;&gt;Crear una librería compartida&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-shared&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -shared archivo.o -o libalgo.so&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Generará:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;libalgo.so&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;codigo-independiente-de-posicion&quot;&gt;Código independiente de posición&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-fPIC&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Se utiliza principalmente para crear librerías compartidas (&lt;code&gt;.so&lt;&#x2F;code&gt;) en Linux.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;definir-macros-desde-la-linea-de-comandos&quot;&gt;Definir macros desde la línea de comandos&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-DDEBUG&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Es equivalente a escribir:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;#define&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; DEBUG&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;antes de compilar.&lt;&#x2F;p&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -DDEBUG&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;generar-dependencias&quot;&gt;Generar dependencias&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-M&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Muestra los archivos de cabecera utilizados por el código.&lt;&#x2F;p&gt;
+&lt;p&gt;Es especialmente útil para generar Makefiles.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;seleccionar-arquitectura&quot;&gt;Seleccionar arquitectura&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;compilar-para-32-bits&quot;&gt;Compilar para 32 bits&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-m32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;compilar-para-64-bits&quot;&gt;Compilar para 64 bits&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-m64&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -m32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;soporte-para-hilos&quot;&gt;Soporte para hilos&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-pthread&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Necesario cuando se utilizan componentes como:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;thread&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;mutex&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;condition_variable&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;En Linux suele ser obligatorio.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;mostrar-informacion-detallada-del-compilador&quot;&gt;Mostrar información detallada del compilador&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;-v&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Ejemplo:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -v main.cpp&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Muy útil para diagnosticar problemas de compilación.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;ver-directorios-de-busqueda-del-compilador&quot;&gt;Ver directorios de búsqueda del compilador&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -E -x c++ - -v&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &#x2F;dev&#x2F;null&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Muestra todos los directorios donde &lt;code&gt;g++&lt;&#x2F;code&gt; busca cabeceras y librerías.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;ejemplo-tipico-para-linux&quot;&gt;Ejemplo típico para Linux&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    *&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;.cpp&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -std=c++20&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -O2&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -Wall&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;    `&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;wx-config&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; --cxxflags --libs&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;`&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;    -lsqlite3&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -o contabilidad&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;ejemplo-tipico-para-windows-mingw&quot;&gt;Ejemplo típico para Windows (MinGW)&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    *&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;.cpp&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    sqlite3.c&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -std=c++20&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -O2&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -Wall&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -static-libgcc&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -static-libstdc++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F5C2E7;&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    -o contabilidad.exe&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;resumen&quot;&gt;Resumen&lt;&#x2F;h1&gt;
+&lt;p&gt;Si recién estás empezando, las opciones más importantes para aprender son:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-c&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-o&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-I&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-L&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-l&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-O2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-g&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-Wall&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-Wextra&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-std=c++20&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-m32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-m64&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-static-libgcc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-static-libstdc++&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Con ellas cubrirás la gran mayoría de las necesidades de un proyecto moderno en C++.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

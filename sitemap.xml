@@ -4,35 +4,41 @@
         <loc>https://canuconde.github.io/</loc>
     </url>
     <url>
-        <loc>https://canuconde.github.io/Eq4Moc/</loc>
-    </url>
-    <url>
-        <loc>https://canuconde.github.io/LibroMayor-Excel/</loc>
-    </url>
-    <url>
-        <loc>https://canuconde.github.io/SigmaContable/</loc>
+        <loc>https://canuconde.github.io/about/</loc>
     </url>
     <url>
         <loc>https://canuconde.github.io/blog/</loc>
     </url>
     <url>
+        <loc>https://canuconde.github.io/blog/compilar-con-gpp/</loc>
+        <lastmod>2025-03-02</lastmod>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/blog/manejo-de-errores-en-c/</loc>
+        <lastmod>2026-03-02</lastmod>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/blog/page/1/</loc>
     </url>
     <url>
-        <loc>https://canuconde.github.io/blog/sample-post-1/</loc>
-        <lastmod>2026-06-10</lastmod>
+        <loc>https://canuconde.github.io/directors/</loc>
     </url>
     <url>
-        <loc>https://canuconde.github.io/blog/sample-post-2/</loc>
-        <lastmod>2026-01-28</lastmod>
+        <loc>https://canuconde.github.io/eq4moc/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/librodiariomayor/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/sigmacontable/</loc>
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/</loc>
     </url>
     <url>
-        <loc>https://canuconde.github.io/tags/C++/</loc>
+        <loc>https://canuconde.github.io/tags/c/</loc>
     </url>
     <url>
-        <loc>https://canuconde.github.io/tags/wxWidgets/</loc>
+        <loc>https://canuconde.github.io/tags/c/page/1/</loc>
     </url>
 </urlset>

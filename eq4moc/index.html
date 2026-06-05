@@ -2,12 +2,12 @@
 <html lang="en" data-theme="corporate">
 
 <head>
-    <title>El Canú</title>
+    <title>EQ4MOC | El Canú</title>
 
     <!-- meta data -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mi sitio personal">
+    <meta name="description" content="Equalizador visual para Music On Console hecho en C++ y ncurses">
 
     <!-- stylesheets, fonts, feeds -->
     <link rel="stylesheet" href="/css/main.css?hH2s4v" integrity="sha384-hH2s4vryya6XKroRtCnz08Zwyk3fHpM/0AhJxmqb3RDjzQjGMUAbezRx0t8NfkHI">
@@ -79,10 +79,11 @@
 
 
     
+    
 
 
 
-<a href="/eq4moc" class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md">
+<a href="/eq4moc" class="bg-secondary text-secondary-content no-underline px-3 rounded-md">
         <span class="">Eq4moc</span>
 </a>
 
@@ -124,11 +125,10 @@
 
 
     
-    
 
 
 
-<a href="/tags" class="bg-secondary text-secondary-content no-underline px-3 rounded-md">
+<a href="/tags" class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md">
         <span class="">Tags</span>
 </a>
 
@@ -254,29 +254,132 @@
                         <div class="pb-8">
                             
 
-<div class="flex flex-col items-center mt-10">
-    <h1>Tags</h1>
 
-    <div class="flex grid-flow-row space-x-6 pl-1 mb-2">
-    
-    
-<span class="flex items-center whitespace-nowrap">
-    <svg role="img" aria-label="Tag" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /></svg><a href="/tags&#x2F;c&#x2F;" class="no-underline hover:underline">C++</a><sup class="ml-1">2</sup>
-</span>
-
-    
-    </div>
+<div class="breadcrumbs text-sm">
+    <ul>
+        <li><a href="/">Home</a></li>
+        
+        
+        
+        
+        <li><a class="breadcrumb-path active" href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;eq4moc&#x2F;">EQ4MOC</a></li>
+    </ul>
 </div>
 
 
-<h2>C++</h2>
+<h1>EQ4MOC</h1>
+
+
+<div class="flex flex-wrap space-x-6 gap-y-2 pl-1 mb-4">
+    
+
+    
+
+    
+    
+
+    
+    
+</div>
+
+
+<blockquote>
+<p>Equalizador visual para Music On Console hecho en C++ y ncurses</p>
+</blockquote>
+<p><a rel="external" href="https://github.com/canuconde/EQ4MOC">Repositorio oficial de EQ4MOC</a></p>
+<hr />
+<h2 id="dale-nueva-vida-a-music-on-console">Dale nueva vida a Music On Console</h2>
+<p>EQ4MOC es una aplicación para Linux desarrollada en C++ que permite editar ecualizadores de <strong>Music On Console (MOC)</strong> desde una interfaz visual en terminal utilizando <strong>ncurses</strong>.</p>
+<table><thead><tr><th style="text-align: left"></th><th style="text-align: right"></th></tr></thead><tbody>
+<tr><td style="text-align: left">En lugar de modificar archivos de configuración manualmente, EQ4MOC ofrece una experiencia rápida, cómoda y completamente integrada con el ecosistema clásico de Linux.</td><td style="text-align: right"><img src="/images/eq4moc1.jpg" alt="Eq4Moc" /></td></tr>
+</tbody></table>
+<p>El proyecto fue compartido originalmente en Reddit como una solución para quienes usan MOC diariamente y querían evitar editar presets “a mano”.</p>
+<hr />
+<h2 id="sparkles-caracteristicas">✨ Características</h2>
 <ul>
-    
-    <li><a href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;manejo-de-errores-en-c&#x2F;">Manejo de errores en C++</a> ( 2-Mar-2026)</li>
-    
-    <li><a href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;compilar-con-gpp&#x2F;">Compilar con g++</a> ( 2-Mar-2025)</li>
-    
+<li>🎚️ Interfaz visual en terminal</li>
+<li>⚡ Desarrollo nativo en C++</li>
+<li>🖥️ Compatible con entornos minimalistas</li>
+<li>🎨 Integración con el tema configurado en MOC</li>
+<li>📂 Carga automática de archivos EQSET</li>
+<li>🔧 Creación automática de configuración por defecto</li>
+<li>⌨️ Pensado para usuarios de teclado y terminal</li>
+<li>🐧 Ideal para Linux clásico y workflows retro/minimalistas</li>
 </ul>
+<hr />
+<h2 id="brain-filosofia-del-proyecto">🧠 Filosofía del proyecto</h2>
+<p>EQ4MOC está pensado para quienes disfrutan:</p>
+<ul>
+<li>herramientas livianas,</li>
+<li>software que hace una sola cosa bien,</li>
+<li>aplicaciones en terminal rápidas y eficientes,</li>
+<li>y el estilo clásico UNIX.</li>
+</ul>
+<p>No intenta reemplazar interfaces modernas pesadas.
+Busca ofrecer una experiencia directa, veloz y funcional.</p>
+<p><img src="/images/eq4moc2.jpg" alt="Eq4Moc" /></p>
+<hr />
+<h2 id="frame-photo-una-interfaz-simple-y-efectiva">🖼️ Una interfaz simple y efectiva</h2>
+<p>El proyecto utiliza <code>ncurses</code> para construir una interfaz totalmente navegable desde teclado, manteniendo el espíritu de las aplicaciones Linux de principios de los 2000.</p>
+<p>Perfecto para:</p>
+<ul>
+<li>usuarios de tiling window managers,</li>
+<li>amantes de terminales retro,</li>
+<li>servidores personales,</li>
+<li>PCs antiguas,</li>
+<li>y setups minimalistas.</li>
+</ul>
+<hr />
+<h2 id="gear-tecnologias-utilizadas">⚙️ Tecnologías utilizadas</h2>
+<ul>
+<li><strong>C++</strong></li>
+<li><strong>ncurses</strong></li>
+<li><strong>Linux</strong></li>
+<li><strong>Music On Console (MOC)</strong></li>
+</ul>
+<hr />
+<h2 id="rocket-instalacion">🚀 Instalación</h2>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">git</span><span style="color: #A6E3A1;"> clone https://github.com/canuconde/EQ4MOC.git</span></span>
+<span class="giallo-l"><span style="color: #F38BA8;font-style: italic;">cd</span><span style="color: #A6E3A1;"> EQ4MOC</span></span>
+<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">make</span></span>
+<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">make</span><span style="color: #A6E3A1;"> install</span></span>
+<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">./eq4moc</span></span></code></pre>
+<hr />
+<h2 id="musical-note-que-es-music-on-console">🎵 ¿Qué es Music On Console?</h2>
+<p>Music On Console es uno de los reproductores de música en terminal más queridos dentro del ecosistema Linux.</p>
+<p>EQ4MOC nace como una extensión natural para mejorar la experiencia de uso de MOC sin abandonar la terminal.</p>
+<hr />
+<h2 id="bulb-por-que-usar-eq4moc">💡 ¿Por qué usar EQ4MOC?</h2>
+<p>Porque editar archivos de ecualización manualmente:</p>
+<ul>
+<li>es lento,</li>
+<li>incómodo,</li>
+<li>propenso a errores,</li>
+<li>y rompe el flujo de trabajo.</li>
+</ul>
+<p>EQ4MOC transforma esa tarea en algo visual, rápido y agradable.</p>
+<hr />
+<h2 id="camera-flash-ideal-para-amantes-de">📸 Ideal para amantes de:</h2>
+<ul>
+<li>Linux clásico</li>
+<li>aplicaciones TUI</li>
+<li>ncurses</li>
+<li>herramientas minimalistas</li>
+<li>audio en terminal</li>
+<li>workflows keyboard-driven</li>
+</ul>
+<hr />
+<h2 id="package-estado-del-proyecto">📦 Estado del proyecto</h2>
+<p>Proyecto open source desarrollado por <a rel="external" href="https://github.com/canuconde">Sebastián "Canu" Conde en GitHub</a>.</p>
+<p>Actualmente enfocado en ofrecer una experiencia simple, funcional y ligera para usuarios de MOC.</p>
+<hr />
+<h2 id="probar-eq4moc">⭐ Probar EQ4MOC</h2>
+<p>Si usás Music On Console y querés una forma más cómoda de manejar el ecualizador, EQ4MOC puede convertirse rápidamente en una herramienta imprescindible.</p>
+<p>👉 <a rel="external" href="https://github.com/canuconde/EQ4MOC">Ver proyecto en GitHub</a></p>
+
+
+
+
 
 
 
@@ -351,10 +454,11 @@
 
 
     
+    
 
 
 
-<a href="/eq4moc" class="link no-underline ">
+<a href="/eq4moc" class="link no-underline menu-active">
         Eq4moc
 </a>
 
@@ -396,11 +500,10 @@
 
 
     
-    
 
 
 
-<a href="/tags" class="link no-underline menu-active">
+<a href="/tags" class="link no-underline ">
         Tags
 </a>
 
