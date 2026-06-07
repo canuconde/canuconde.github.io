@@ -2,12 +2,12 @@
 <html lang="en" data-theme="corporate">
 
 <head>
-    <title>Compilar con g++ | Canu Conde</title>
+    <title>Conversiones de Tipo en C++ | Canu Conde</title>
 
     <!-- meta data -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Guía práctica de las opciones más importantes">
+    <meta name="description" content="Conversiones implícitas y explícitas">
 
     <!-- stylesheets, fonts, feeds -->
     <link rel="stylesheet" href="/css/main.css?hH2s4v" integrity="sha384-hH2s4vryya6XKroRtCnz08Zwyk3fHpM/0AhJxmqb3RDjzQjGMUAbezRx0t8NfkHI">
@@ -266,19 +266,19 @@
         
         <li><a class="breadcrumb-path" href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;">Posts</a></li>
         
-        <li><a class="breadcrumb-path active" href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;compilar-con-gpp&#x2F;">Compilar con g++</a></li>
+        <li><a class="breadcrumb-path active" href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;conversiones-de-tipo-en-c&#x2F;">Conversiones de Tipo en C++</a></li>
     </ul>
 </div>
 
 
-<h1>Compilar con g++</h1>
+<h1>Conversiones de Tipo en C++</h1>
 
 
 <div class="flex flex-wrap space-x-6 gap-y-2 pl-1 mb-4">
     
     <span class="flex items-center whitespace-nowrap">
         <svg role="img" aria-label="Calendar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" /></svg>
-        <span class=""><time datetime="2025-03-02"> 2-Mar-2025</time></span>
+        <span class=""><time datetime="2025-06-07"> 7-Jun-2025</time></span>
     </span>
     
 
@@ -288,11 +288,11 @@
     
     <span class="flex items-center whitespace-nowrap">
         <svg role="img" aria-label="Pencil" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" /></svg>
-        <span class="ml-1">346 words</span>
+        <span class="ml-1">427 words</span>
     </span>
     <span class="flex items-center whitespace-nowrap">
         <svg role="img" aria-label="Clock" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" /></svg>
-        <span class="ml-1">2
+        <span class="ml-1">3
             minutes
         </span>
     </span>
@@ -312,170 +312,190 @@
 </div>
 
 
-<h1 id="guia-practica-de-las-opciones-mas-importantes-de-g">Guía práctica de las opciones más importantes de <code>g++</code></h1>
-<p><code>g++</code> tiene cientos de opciones, pero para la mayoría de los proyectos de escritorio en C++ (por ejemplo, usando wxWidgets y SQLite) hay un conjunto relativamente pequeño que conviene dominar.</p>
+<h1 id="conversiones-de-tipo-en-c-guia-practica">Conversiones de Tipo en C++: Guía Práctica</h1>
+<p>Las conversiones de tipo (o <em>type casting</em>) permiten transformar un valor de un tipo de dato en otro. Son una herramienta fundamental en C++, pero también una fuente frecuente de errores si se utilizan incorrectamente.</p>
+<p>En este artículo repasaremos las conversiones implícitas y explícitas, junto con los distintos operadores de conversión disponibles en C++ moderno.</p>
 <hr />
-<h1 id="compilar-un-archivo-fuente">Compilar un archivo fuente</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> -c main.cpp</span></span></code></pre>
-<p>La opción <code>-c</code> indica que se compile el código pero <strong>sin enlazar</strong>.</p>
+<h1 id="conversiones-implicitas">Conversiones Implícitas</h1>
+<p>El compilador puede realizar algunas conversiones automáticamente cuando considera que son seguras.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> entero </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 10</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> decimal </span><span style="color: #94E2D5;">=</span><span> entero</span><span style="color: #9399B2;">;</span><span style="color: #9399B2;font-style: italic;"> // int -&gt; double</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>10.0</span></span></code></pre>
+<p>En este caso no hay pérdida de información porque un <code>double</code> puede representar perfectamente un entero pequeño.</p>
+<hr />
+<h1 id="conversiones-con-perdida-de-datos">Conversiones con Pérdida de Datos</h1>
+<p>No todas las conversiones son seguras.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> precio </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 19.99</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> entero </span><span style="color: #94E2D5;">=</span><span> precio</span><span style="color: #9399B2;">;</span></span></code></pre>
 <p>Resultado:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>main.cpp -&gt; main.o</span></span></code></pre>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>19</span></span></code></pre>
+<p>La parte decimal se pierde.</p>
 <hr />
-<h1 id="especificar-el-nombre-de-salida">Especificar el nombre de salida</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.cpp -o miapp</span></span></code></pre>
-<p>La opción <code>-o</code> permite definir el nombre del archivo generado.</p>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.cpp -o contabilidad.exe</span></span></code></pre>
+<h1 id="cast-estilo-c">Cast Estilo C</h1>
+<p>La forma tradicional heredada de C es:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> precio </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 19.99</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> entero </span><span style="color: #94E2D5;">=</span><span style="color: #9399B2;"> (</span><span style="color: #CBA6F7;">int</span><span style="color: #9399B2;">)</span><span>precio</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Aunque funciona, en C++ moderno se recomienda evitarla porque es menos clara y puede ocultar errores.</p>
 <hr />
-<h1 id="agregar-directorios-de-inclusion">Agregar directorios de inclusión</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.cpp -IC:</span><span style="color: #F5C2E7;">\w</span><span style="color: #A6E3A1;">xWidgets</span><span style="color: #F5C2E7;">\i</span><span style="color: #A6E3A1;">nclude</span></span></code></pre>
-<p>La opción <code>-I</code> indica dónde buscar archivos de cabecera (<code>.h</code>).</p>
-<p>Por ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">#include</span><span style="color: #A6E3A1;"> &lt;wx/wx.h&gt;</span></span></code></pre>
+<h1 id="static-cast">static_cast</h1>
+<p>Es la conversión más utilizada en C++ moderno.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> precio </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 19.99</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> entero </span><span style="color: #94E2D5;">= static_cast&lt;</span><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">&gt;</span><span style="color: #9399B2;">(</span><span>precio</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>cout </span><span style="color: #94E2D5;">&lt;&lt;</span><span> entero </span><span style="color: #94E2D5;">&lt;&lt;</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span>endl</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>19</span></span></code></pre>
+<p>Ventajas:</p>
+<ul>
+<li>Más legible.</li>
+<li>Más segura que el cast estilo C.</li>
+<li>Permite detectar errores en compilación.</li>
+</ul>
 <hr />
-<h1 id="agregar-directorios-de-librerias">Agregar directorios de librerías</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.o -LC:</span><span style="color: #F5C2E7;">\l</span><span style="color: #A6E3A1;">ibs</span></span></code></pre>
-<p>La opción <code>-L</code> indica dónde buscar librerías durante el enlazado.</p>
+<h1 id="conversion-entre-tipos-numericos">Conversión entre Tipos Numéricos</h1>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> a </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 10</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">float</span><span> b </span><span style="color: #94E2D5;">= static_cast&lt;</span><span style="color: #CBA6F7;">float</span><span style="color: #94E2D5;">&gt;</span><span style="color: #9399B2;">(</span><span>a</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>cout </span><span style="color: #94E2D5;">&lt;&lt;</span><span> b </span><span style="color: #94E2D5;">&lt;&lt;</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span>endl</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>10</span></span></code></pre>
 <hr />
-<h1 id="enlazar-librerias">Enlazar librerías</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.o -lsqlite3</span></span></code></pre>
-<p>La opción <code>-l</code> enlaza una librería.</p>
-<p>Por ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-lsqlite3</span></span></code></pre>
-<p>buscará automáticamente:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>libsqlite3.a</span></span></code></pre>
-<p>o</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>libsqlite3.dll.a</span></span></code></pre>
+<h1 id="conversion-de-caracteres">Conversión de Caracteres</h1>
+<p>Los caracteres son internamente números.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">char</span><span> letra </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &#39;A&#39;</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> codigo </span><span style="color: #94E2D5;">= static_cast&lt;</span><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">&gt;</span><span style="color: #9399B2;">(</span><span>letra</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>cout </span><span style="color: #94E2D5;">&lt;&lt;</span><span> codigo </span><span style="color: #94E2D5;">&lt;&lt;</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span>endl</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>65</span></span></code></pre>
+<p>Y viceversa:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> codigo </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 66</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">char</span><span> letra </span><span style="color: #94E2D5;">= static_cast&lt;</span><span style="color: #CBA6F7;">char</span><span style="color: #94E2D5;">&gt;</span><span style="color: #9399B2;">(</span><span>codigo</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>cout </span><span style="color: #94E2D5;">&lt;&lt;</span><span> letra </span><span style="color: #94E2D5;">&lt;&lt;</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span>endl</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>B</span></span></code></pre>
 <hr />
-<h1 id="optimizacion">Optimización</h1>
-<h2 id="sin-optimizacion">Sin optimización</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-O0</span></span></code></pre><h2 id="optimizacion-basica">Optimización básica</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-O1</span></span></code></pre><h2 id="optimizacion-recomendada">Optimización recomendada</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-O2</span></span></code></pre><h2 id="optimizacion-agresiva">Optimización agresiva</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-O3</span></span></code></pre>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> -O2 main.cpp -o app</span></span></code></pre>
+<h1 id="conversion-de-punteros">Conversión de Punteros</h1>
+<p><code>static_cast</code> puede convertir punteros relacionados mediante herencia.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">class</span><span style="color: #F9E2AF;font-style: italic;"> Animal</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">public</span><span style="color: #9399B2;">:</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">    virtual</span><span style="color: #89B4FA;font-style: italic;"> ~Animal</span><span style="color: #9399B2;">()</span><span style="color: #94E2D5;"> =</span><span style="color: #CBA6F7;"> default</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">class</span><span style="color: #F9E2AF;font-style: italic;"> Perro</span><span style="color: #9399B2;"> :</span><span style="color: #CBA6F7;"> public</span><span style="color: #F9E2AF;font-style: italic;"> Animal</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Perro perro</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Animal</span><span style="color: #94E2D5;">*</span><span> animal </span><span style="color: #94E2D5;">= static_cast&lt;</span><span>Animal</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>perro</span><span style="color: #9399B2;">);</span></span></code></pre>
 <hr />
-<h1 id="informacion-de-depuracion">Información de depuración</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-g</span></span></code></pre>
-<p>Genera información para depuradores como GDB.</p>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> -g main.cpp</span></span></code></pre>
+<h1 id="dynamic-cast">dynamic_cast</h1>
+<p>Se utiliza cuando se trabaja con polimorfismo y se necesita verificar el tipo real del objeto.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>Animal</span><span style="color: #94E2D5;">*</span><span> animal </span><span style="color: #94E2D5;">=</span><span style="color: #CBA6F7;font-weight: bold;"> new</span><span style="color: #89B4FA;font-style: italic;"> Perro</span><span style="color: #9399B2;">();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Perro</span><span style="color: #94E2D5;">*</span><span> perro </span><span style="color: #94E2D5;">= dynamic_cast&lt;</span><span>Perro</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span><span>animal</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">if</span><span style="color: #9399B2;"> (</span><span>perro</span><span style="color: #9399B2;">)</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
+<span class="giallo-l"><span style="color: #F9E2AF;">    std</span><span style="color: #9399B2;">::</span><span>cout </span><span style="color: #94E2D5;">&lt;&lt;</span><span style="color: #A6E3A1;"> &quot;Conversion exitosa&quot;</span><span style="color: #94E2D5;"> &lt;&lt;</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span>endl</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
+<p>Si la conversión falla, devuelve <code>nullptr</code>.</p>
 <hr />
-<h1 id="advertencias-del-compilador">Advertencias del compilador</h1>
-<h2 id="advertencias-basicas">Advertencias básicas</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-Wall</span></span></code></pre><h2 id="advertencias-adicionales">Advertencias adicionales</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-Wextra</span></span></code></pre><h2 id="cumplimiento-estricto-del-estandar">Cumplimiento estricto del estándar</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-Wpedantic</span></span></code></pre>
-<p>Una combinación muy utilizada es:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-Wall</span><span style="color: #A6E3A1;"> -Wextra</span></span></code></pre>
+<h1 id="reinterpret-cast">reinterpret_cast</h1>
+<p>Permite reinterpretar los bits de una variable como otro tipo.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> numero </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 65</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">char</span><span style="color: #94E2D5;">*</span><span> ptr </span><span style="color: #94E2D5;">= reinterpret_cast&lt;</span><span style="color: #CBA6F7;">char</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>numero</span><span style="color: #9399B2;">);</span></span></code></pre>
+<p>Este cast es extremadamente potente y también extremadamente peligroso.</p>
+<p>Se utiliza principalmente para:</p>
+<ul>
+<li>Programación de sistemas.</li>
+<li>Drivers.</li>
+<li>Protocolos binarios.</li>
+<li>Serialización de bajo nivel.</li>
+</ul>
+<p>En aplicaciones normales suele ser mejor evitarlo.</p>
 <hr />
-<h1 id="seleccionar-estandar-de-c">Seleccionar estándar de C++</h1>
-<h2 id="c-17">C++17</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span>-std</span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;">c++17</span></span></code></pre><h2 id="c-20">C++20</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span>-std</span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;">c++20</span></span></code></pre>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.cpp -std=c++20</span></span></code></pre>
+<h1 id="const-cast">const_cast</h1>
+<p>Permite agregar o quitar el modificador <code>const</code>.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">const int</span><span> valor </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 10</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">*</span><span> ptr </span><span style="color: #94E2D5;">= const_cast&lt;</span><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>valor</span><span style="color: #9399B2;">);</span></span></code></pre>
+<p>Debe utilizarse con mucho cuidado. Modificar un objeto originalmente declarado como <code>const</code> produce comportamiento indefinido.</p>
 <hr />
-<h1 id="enlazar-estaticamente-las-librerias-del-compilador">Enlazar estáticamente las librerías del compilador</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-static-libgcc</span></span>
-<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-static-libstdc++</span></span></code></pre>
-<p>Estas opciones evitan tener que distribuir DLLs como:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>libgcc_s_dw2-1.dll</span></span>
-<span class="giallo-l"><span>libstdc++-6.dll</span></span></code></pre>
+<h1 id="conversion-de-enumeraciones">Conversión de Enumeraciones</h1>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">enum</span><span style="color: #F9E2AF;font-style: italic;"> Estado</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
+<span class="giallo-l"><span style="color: #94E2D5;">    Activo =</span><span style="color: #FAB387;"> 1</span><span style="color: #9399B2;">,</span></span>
+<span class="giallo-l"><span style="color: #94E2D5;">    Inactivo =</span><span style="color: #FAB387;"> 2</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Estado e </span><span style="color: #94E2D5;">=</span><span> Activo</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> valor </span><span style="color: #94E2D5;">= static_cast&lt;</span><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">&gt;</span><span style="color: #9399B2;">(</span><span>e</span><span style="color: #9399B2;">);</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>1</span></span></code></pre>
 <hr />
-<h1 id="intentar-enlazado-completamente-estatico">Intentar enlazado completamente estático</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-static</span></span></code></pre>
-<p>Esto intenta enlazar todas las dependencias de forma estática.</p>
-<p>En Windows suele funcionar razonablemente bien. En Linux puede ser más complicado debido a dependencias del sistema.</p>
+<h1 id="conversion-de-void">Conversión de <code>void*</code></h1>
+<p>Muy común en APIs antiguas y bibliotecas en C.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> numero </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 42</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">void</span><span style="color: #94E2D5;">*</span><span> ptr </span><span style="color: #94E2D5;">= &amp;</span><span>numero</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">*</span><span> entero </span><span style="color: #94E2D5;">= static_cast&lt;</span><span style="color: #CBA6F7;">int</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span><span>ptr</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>cout </span><span style="color: #94E2D5;">&lt;&lt; *</span><span>entero </span><span style="color: #94E2D5;">&lt;&lt;</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span>endl</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>42</span></span></code></pre>
 <hr />
-<h1 id="crear-una-libreria-compartida">Crear una librería compartida</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-shared</span></span></code></pre>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> -shared archivo.o -o libalgo.so</span></span></code></pre>
-<p>Generará:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>libalgo.so</span></span></code></pre>
+<h1 id="conversion-definida-por-el-usuario">Conversión Definida por el Usuario</h1>
+<p>Una clase puede definir cómo convertirse a otro tipo.</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">class</span><span style="color: #F9E2AF;font-style: italic;"> Peso</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">private</span><span style="color: #9399B2;">:</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">    double</span><span> valor</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">public</span><span style="color: #9399B2;">:</span></span>
+<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">    Peso</span><span style="color: #9399B2;">(</span><span style="color: #CBA6F7;">double</span><span style="color: #EBA0AC;font-style: italic;"> v</span><span style="color: #9399B2;">) :</span><span style="color: #89B4FA;font-style: italic;"> valor</span><span style="color: #9399B2;">(</span><span>v</span><span style="color: #9399B2;">)</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">    {</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">    operator</span><span> double</span><span style="color: #9399B2;">()</span><span style="color: #CBA6F7;"> const</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">    {</span></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">        return</span><span> valor</span><span style="color: #9399B2;">;</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">    }</span></span>
+<span class="giallo-l"><span style="color: #9399B2;">};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F9E2AF;font-style: italic;">Peso</span><span style="color: #89B4FA;font-style: italic;"> p</span><span style="color: #9399B2;">(</span><span style="color: #FAB387;">10.5</span><span style="color: #9399B2;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> kg </span><span style="color: #94E2D5;">=</span><span> p</span><span style="color: #9399B2;">;</span></span></code></pre>
+<p>Salida:</p>
+<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>10.5</span></span></code></pre>
 <hr />
-<h1 id="codigo-independiente-de-posicion">Código independiente de posición</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-fPIC</span></span></code></pre>
-<p>Se utiliza principalmente para crear librerías compartidas (<code>.so</code>) en Linux.</p>
-<hr />
-<h1 id="definir-macros-desde-la-linea-de-comandos">Definir macros desde la línea de comandos</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-DDEBUG</span></span></code></pre>
-<p>Es equivalente a escribir:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">#define</span><span style="color: #89B4FA;font-style: italic;"> DEBUG</span></span></code></pre>
-<p>antes de compilar.</p>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.cpp -DDEBUG</span></span></code></pre>
-<hr />
-<h1 id="generar-dependencias">Generar dependencias</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-M</span></span></code></pre>
-<p>Muestra los archivos de cabecera utilizados por el código.</p>
-<p>Es especialmente útil para generar Makefiles.</p>
-<hr />
-<h1 id="seleccionar-arquitectura">Seleccionar arquitectura</h1>
-<h2 id="compilar-para-32-bits">Compilar para 32 bits</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-m32</span></span></code></pre><h2 id="compilar-para-64-bits">Compilar para 64 bits</h2>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-m64</span></span></code></pre>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> main.cpp -m32</span></span></code></pre>
-<hr />
-<h1 id="soporte-para-hilos">Soporte para hilos</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-pthread</span></span></code></pre>
-<p>Necesario cuando se utilizan componentes como:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>thread</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>mutex</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>condition_variable</span></span></code></pre>
-<p>En Linux suele ser obligatorio.</p>
-<hr />
-<h1 id="mostrar-informacion-detallada-del-compilador">Mostrar información detallada del compilador</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">-v</span></span></code></pre>
-<p>Ejemplo:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> -v main.cpp</span></span></code></pre>
-<p>Muy útil para diagnosticar problemas de compilación.</p>
-<hr />
-<h1 id="ver-directorios-de-busqueda-del-compilador">Ver directorios de búsqueda del compilador</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #A6E3A1;"> -E -x c++ - -v</span><span style="color: #94E2D5;"> &lt;</span><span style="color: #A6E3A1;"> /dev/null</span></span></code></pre>
-<p>Muestra todos los directorios donde <code>g++</code> busca cabeceras y librerías.</p>
-<hr />
-<h1 id="ejemplo-tipico-para-linux">Ejemplo típico para Linux</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span>    *</span><span style="color: #A6E3A1;">.cpp</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -std=c++20</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -O2</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -Wall</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #94E2D5;">    `</span><span style="color: #89B4FA;font-style: italic;">wx-config</span><span style="color: #A6E3A1;"> --cxxflags --libs</span><span style="color: #94E2D5;">`</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">    -lsqlite3</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -o contabilidad</span></span></code></pre>
-<hr />
-<h1 id="ejemplo-tipico-para-windows-mingw">Ejemplo típico para Windows (MinGW)</h1>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">g++</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span>    *</span><span style="color: #A6E3A1;">.cpp</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    sqlite3.c</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -std=c++20</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -O2</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -Wall</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -static-libgcc</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -static-libstdc++</span><span style="color: #F5C2E7;"> \</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    -o contabilidad.exe</span></span></code></pre>
+<h1 id="buenas-practicas">Buenas Prácticas</h1>
+<p>✅ Preferir <code>static_cast</code> sobre el cast estilo C.</p>
+<p>✅ Usar <code>dynamic_cast</code> cuando se necesite verificar tipos en jerarquías polimórficas.</p>
+<p>✅ Evitar <code>reinterpret_cast</code> salvo que realmente se comprenda lo que está ocurriendo a nivel de memoria.</p>
+<p>✅ Evitar eliminar <code>const</code> con <code>const_cast</code>.</p>
+<p>✅ Activar todas las advertencias del compilador (<code>-Wall -Wextra</code> en GCC/Clang).</p>
 <hr />
 <h1 id="resumen">Resumen</h1>
-<p>Si recién estás empezando, las opciones más importantes para aprender son:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>-c</span></span>
-<span class="giallo-l"><span>-o</span></span>
-<span class="giallo-l"><span>-I</span></span>
-<span class="giallo-l"><span>-L</span></span>
-<span class="giallo-l"><span>-l</span></span>
-<span class="giallo-l"><span>-O2</span></span>
-<span class="giallo-l"><span>-g</span></span>
-<span class="giallo-l"><span>-Wall</span></span>
-<span class="giallo-l"><span>-Wextra</span></span>
-<span class="giallo-l"><span>-std=c++20</span></span>
-<span class="giallo-l"><span>-m32</span></span>
-<span class="giallo-l"><span>-m64</span></span>
-<span class="giallo-l"><span>-static-libgcc</span></span>
-<span class="giallo-l"><span>-static-libstdc++</span></span></code></pre>
-<p>Con ellas cubrirás la gran mayoría de las necesidades de un proyecto moderno en C++.</p>
+<p>C++ ofrece varios mecanismos de conversión, cada uno diseñado para situaciones específicas:</p>
+<table><thead><tr><th>Conversión</th><th>Uso Principal</th></tr></thead><tbody>
+<tr><td><code>static_cast</code></td><td>Conversión segura entre tipos relacionados</td></tr>
+<tr><td><code>dynamic_cast</code></td><td>Verificación de tipos en herencia polimórfica</td></tr>
+<tr><td><code>reinterpret_cast</code></td><td>Reinterpretación de memoria</td></tr>
+<tr><td><code>const_cast</code></td><td>Agregar o quitar <code>const</code></td></tr>
+<tr><td>Cast estilo C</td><td>Compatibilidad heredada (no recomendado)</td></tr>
+</tbody></table>
+<p>En la mayoría de las aplicaciones modernas, <code>static_cast</code> cubre prácticamente todas las necesidades habituales y debería ser tu primera opción al realizar conversiones explícitas.</p>
 
 
 

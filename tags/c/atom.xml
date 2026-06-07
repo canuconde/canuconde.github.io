@@ -1,12 +1,233 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-    <title>El Canú - C++</title>
+    <title>Canu Conde - C++</title>
     <subtitle>Mi sitio personal</subtitle>
     <link rel="self" type="application/atom+xml" href="https://canuconde.github.io/tags/c/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://canuconde.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2026-03-02T00:00:00+00:00</updated>
+    <updated>2026-05-06T00:00:00+00:00</updated>
     <id>https://canuconde.github.io/tags/c/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Conversiones entre Tipos de C++ y wxWidgets</title>
+        <published>2026-05-06T00:00:00+00:00</published>
+        <updated>2026-05-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              canu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://canuconde.github.io/blog/conversiones-de-tipo-entre-c-y-wxwidgets/"/>
+        <id>https://canuconde.github.io/blog/conversiones-de-tipo-entre-c-y-wxwidgets/</id>
+        
+        <content type="html" xml:base="https://canuconde.github.io/blog/conversiones-de-tipo-entre-c-y-wxwidgets/">&lt;h1 id=&quot;conversiones-entre-tipos-de-c-y-wxwidgets&quot;&gt;Conversiones entre Tipos de C++ y wxWidgets&lt;&#x2F;h1&gt;
+&lt;p&gt;Cuando trabajamos con wxWidgets es habitual tener que convertir datos entre los tipos estándar de C++ y los tipos propios del framework.&lt;&#x2F;p&gt;
+&lt;p&gt;En este artículo repasaremos las conversiones más comunes que encontrarás en aplicaciones reales.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;std-string-wxstring&quot;&gt;std::string ↔ wxString&lt;&#x2F;h2&gt;
+&lt;p&gt;Probablemente la conversión más frecuente.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;std-string-a-wxstring&quot;&gt;std::string a wxString&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;string texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;Hola mundo&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; wxtexto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;También puede hacerse explícitamente:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString wxtexto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;FromUTF8&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Esta última opción es preferible cuando sabemos que el contenido está codificado en UTF-8.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wxstring-a-std-string&quot;&gt;wxString a std::string&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;Hola mundo&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;string str &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ToStdString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Si necesitamos UTF-8:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;string str &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ToUTF8&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;const-char-wxstring&quot;&gt;const char* ↔ wxString&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;const-char-a-wxstring&quot;&gt;const char* a wxString&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;Hola&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; wxtexto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;O usando UTF-8:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString wxtexto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;FromUTF8&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;wxstring-a-const-char&quot;&gt;wxString a const char*&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;Hola&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; ptr &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;mb_str&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Para UTF-8:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; ptr &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;utf8_string&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;int-wxstring&quot;&gt;int ↔ wxString&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;int-a-wxstring&quot;&gt;int a wxString&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; numero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 123&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Format&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;%d&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;span&gt; numero&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;También:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;numero&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;wxstring-a-int&quot;&gt;wxString a int&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;123&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;long&lt;&#x2F;span&gt;&lt;span&gt; valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ToLong&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;    &#x2F;&#x2F; Conversión exitosa&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;double-wxstring&quot;&gt;double ↔ wxString&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;double-a-wxstring&quot;&gt;double a wxString&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; precio &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 123.45&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Format&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;%.2f&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;span&gt; precio&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;wxstring-a-double&quot;&gt;wxString a double&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;123.45&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ToDouble&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;    &#x2F;&#x2F; Conversión exitosa&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;bool-wxstring&quot;&gt;bool ↔ wxString&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;bool-a-wxstring&quot;&gt;bool a wxString&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span&gt; activo &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; true&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; activo &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;?&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;true&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; :&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;false&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;wxstring-a-bool&quot;&gt;wxString a bool&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;true&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span&gt; activo &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;CmpNoCase&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;true&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; ==&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 0&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;std-vector&quot;&gt;std::vector&lt;wxString&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Los contenedores estándar funcionan perfectamente con wxString.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;vector&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; nombres&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;nombres&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;push_back&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;Juan&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;nombres&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;push_back&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;Ana&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;wxarraystring-std-vector&quot;&gt;wxArrayString ↔ std::vector&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;wxarraystring-a-std-vector&quot;&gt;wxArrayString a std::vector&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxArrayString array&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;array&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Add&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;Uno&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;array&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Add&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;Dos&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;vector&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; vec&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;    array&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;begin&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(),&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;    array&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;std-vector-a-wxarraystring&quot;&gt;std::vector a wxArrayString&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;vector&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; vec &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    &amp;quot;Uno&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    &amp;quot;Dos&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;};&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxArrayString array&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const auto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt; item &lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; vec&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    array&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Add&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;item&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;sqlite-y-wxstring&quot;&gt;SQLite y wxString&lt;&#x2F;h2&gt;
+&lt;p&gt;Cuando trabajamos con SQLite suele ser necesario convertir cadenas.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;guardar-datos&quot;&gt;Guardar datos&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;sqlite3_bind_text&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    stmt&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;    1&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    nombre&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;utf8_string&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(),&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;    -&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    SQLITE_TRANSIENT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;leer-datos&quot;&gt;Leer datos&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;    reinterpret_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;        sqlite3_column_text&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;stmt&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 0&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;    );&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString nombre &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    wxString&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;FromUTF8&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;wxdatetime-wxstring&quot;&gt;wxDateTime ↔ wxString&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;fecha-a-texto&quot;&gt;Fecha a texto&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxDateTime fecha &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; wxDateTime&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Now&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    fecha&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;FormatISODate&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Resultado:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;2026-06-07&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;texto-a-fecha&quot;&gt;Texto a fecha&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxDateTime fecha&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;fecha&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ParseISODate&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;    &amp;quot;2026-06-07&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;wxdatetime-std-chrono&quot;&gt;wxDateTime ↔ std::chrono&lt;&#x2F;h2&gt;
+&lt;p&gt;A partir de C++20 es frecuente combinar wxWidgets con &lt;code&gt;std::chrono&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;auto&lt;&#x2F;span&gt;&lt;span&gt; ahora &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;chrono&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;system_clock&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;now&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Para interoperar suele ser necesario trabajar mediante timestamps Unix.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxDateTime fecha &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    wxDateTime&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;Now&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;time_t&lt;&#x2F;span&gt;&lt;span&gt; unixTime &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    fecha&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;GetTicks&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;conversion-de-punteros&quot;&gt;Conversión de punteros&lt;&#x2F;h2&gt;
+&lt;p&gt;En wxWidgets es habitual obtener punteros a clases derivadas.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxWindow&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; ventana &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;    FindWindow&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;ID_CLIENTE&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxTextCtrl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; txtNombre &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;    dynamic_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;wxTextCtrl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;ventana&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;txtNombre&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    txtNombre&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;SetValue&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;Juan&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;conversion-desde-controles&quot;&gt;Conversión desde controles&lt;&#x2F;h2&gt;
+&lt;p&gt;Una operación extremadamente común consiste en leer un valor desde un control.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;wxString texto &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    txtImporte&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;GetValue&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Convertir a entero:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;long&lt;&#x2F;span&gt;&lt;span&gt; importe&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ToLong&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;importe&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;    &#x2F;&#x2F; OK&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Convertir a decimal:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; importe&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;texto&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;ToDouble&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;importe&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;    &#x2F;&#x2F; OK&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;buenas-practicas&quot;&gt;Buenas Prácticas&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Utilizar UTF-8 siempre que sea posible.&lt;&#x2F;li&gt;
+&lt;li&gt;Preferir &lt;code&gt;ToLong()&lt;&#x2F;code&gt; y &lt;code&gt;ToDouble()&lt;&#x2F;code&gt; antes que funciones como &lt;code&gt;atoi()&lt;&#x2F;code&gt; o &lt;code&gt;atof()&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Evitar conversiones innecesarias entre &lt;code&gt;wxString&lt;&#x2F;code&gt; y &lt;code&gt;std::string&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Mantener internamente un único formato de texto cuando sea posible.&lt;&#x2F;li&gt;
+&lt;li&gt;Verificar siempre el resultado de las conversiones numéricas.&lt;&#x2F;li&gt;
+&lt;li&gt;Utilizar &lt;code&gt;dynamic_cast&lt;&#x2F;code&gt; cuando se trabaje con jerarquías de controles.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;resumen&quot;&gt;Resumen&lt;&#x2F;h2&gt;
+&lt;p&gt;Las conversiones más utilizadas en wxWidgets son:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Desde&lt;&#x2F;th&gt;&lt;th&gt;Hacia&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;std::string&lt;&#x2F;td&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;td&gt;std::string&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;const char*&lt;&#x2F;td&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;td&gt;const char*&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;int&lt;&#x2F;td&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;td&gt;int&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;double&lt;&#x2F;td&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;td&gt;double&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;wxArrayString&lt;&#x2F;td&gt;&lt;td&gt;std::vector&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;wxDateTime&lt;&#x2F;td&gt;&lt;td&gt;wxString&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;Dominar estas conversiones simplifica enormemente el desarrollo de interfaces gráficas, bases de datos y aplicaciones empresariales construidas con wxWidgets.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Manejo de errores en C++</title>
         <published>2026-03-02T00:00:00+00:00</published>
@@ -256,6 +477,209 @@
 &lt;li&gt;Códigos de retorno únicamente en APIs de bajo nivel o por compatibilidad.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;p&gt;Elegir la herramienta adecuada para cada situación produce código más claro, mantenible y robusto.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Conversiones de Tipo en C++</title>
+        <published>2025-06-07T00:00:00+00:00</published>
+        <updated>2025-06-07T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              canu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://canuconde.github.io/blog/conversiones-de-tipo-en-c/"/>
+        <id>https://canuconde.github.io/blog/conversiones-de-tipo-en-c/</id>
+        
+        <content type="html" xml:base="https://canuconde.github.io/blog/conversiones-de-tipo-en-c/">&lt;h1 id=&quot;conversiones-de-tipo-en-c-guia-practica&quot;&gt;Conversiones de Tipo en C++: Guía Práctica&lt;&#x2F;h1&gt;
+&lt;p&gt;Las conversiones de tipo (o &lt;em&gt;type casting&lt;&#x2F;em&gt;) permiten transformar un valor de un tipo de dato en otro. Son una herramienta fundamental en C++, pero también una fuente frecuente de errores si se utilizan incorrectamente.&lt;&#x2F;p&gt;
+&lt;p&gt;En este artículo repasaremos las conversiones implícitas y explícitas, junto con los distintos operadores de conversión disponibles en C++ moderno.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversiones-implicitas&quot;&gt;Conversiones Implícitas&lt;&#x2F;h1&gt;
+&lt;p&gt;El compilador puede realizar algunas conversiones automáticamente cuando considera que son seguras.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 10&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; decimal &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; entero&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt; &#x2F;&#x2F; int -&amp;gt; double&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;10.0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;En este caso no hay pérdida de información porque un &lt;code&gt;double&lt;&#x2F;code&gt; puede representar perfectamente un entero pequeño.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversiones-con-perdida-de-datos&quot;&gt;Conversiones con Pérdida de Datos&lt;&#x2F;h1&gt;
+&lt;p&gt;No todas las conversiones son seguras.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; precio &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 19.99&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; precio&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Resultado:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;19&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;La parte decimal se pierde.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;cast-estilo-c&quot;&gt;Cast Estilo C&lt;&#x2F;h1&gt;
+&lt;p&gt;La forma tradicional heredada de C es:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; precio &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 19.99&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;precio&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Aunque funciona, en C++ moderno se recomienda evitarla porque es menos clara y puede ocultar errores.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;static-cast&quot;&gt;static_cast&lt;&#x2F;h1&gt;
+&lt;p&gt;Es la conversión más utilizada en C++ moderno.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; precio &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 19.99&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;precio&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;19&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Ventajas:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Más legible.&lt;&#x2F;li&gt;
+&lt;li&gt;Más segura que el cast estilo C.&lt;&#x2F;li&gt;
+&lt;li&gt;Permite detectar errores en compilación.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversion-entre-tipos-numericos&quot;&gt;Conversión entre Tipos Numéricos&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; a &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 10&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;float&lt;&#x2F;span&gt;&lt;span&gt; b &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;float&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;a&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; b &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversion-de-caracteres&quot;&gt;Conversión de Caracteres&lt;&#x2F;h1&gt;
+&lt;p&gt;Los caracteres son internamente números.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt; letra &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;#39;A&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; codigo &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;letra&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; codigo &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;65&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Y viceversa:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; codigo &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 66&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt; letra &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;codigo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; letra &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;B&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversion-de-punteros&quot;&gt;Conversión de Punteros&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;code&gt;static_cast&lt;&#x2F;code&gt; puede convertir punteros relacionados mediante herencia.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;class&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt; Animal&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;public&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    virtual&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; ~Animal&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt; default&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;};&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;class&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt; Perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; :&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt; public&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt; Animal&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;};&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Perro perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Animal&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; animal &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;Animal&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;dynamic-cast&quot;&gt;dynamic_cast&lt;&#x2F;h1&gt;
+&lt;p&gt;Se utiliza cuando se trabaja con polimorfismo y se necesita verificar el tipo real del objeto.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Animal&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; animal &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;font-weight: bold;&quot;&gt; new&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; Perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; perro &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= dynamic_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;Perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;animal&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; (&lt;&#x2F;span&gt;&lt;span&gt;perro&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;Conversion exitosa&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; &amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Si la conversión falla, devuelve &lt;code&gt;nullptr&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;reinterpret-cast&quot;&gt;reinterpret_cast&lt;&#x2F;h1&gt;
+&lt;p&gt;Permite reinterpretar los bits de una variable como otro tipo.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; numero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 65&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; ptr &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= reinterpret_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;numero&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Este cast es extremadamente potente y también extremadamente peligroso.&lt;&#x2F;p&gt;
+&lt;p&gt;Se utiliza principalmente para:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Programación de sistemas.&lt;&#x2F;li&gt;
+&lt;li&gt;Drivers.&lt;&#x2F;li&gt;
+&lt;li&gt;Protocolos binarios.&lt;&#x2F;li&gt;
+&lt;li&gt;Serialización de bajo nivel.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;En aplicaciones normales suele ser mejor evitarlo.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;const-cast&quot;&gt;const_cast&lt;&#x2F;h1&gt;
+&lt;p&gt;Permite agregar o quitar el modificador &lt;code&gt;const&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;const int&lt;&#x2F;span&gt;&lt;span&gt; valor &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 10&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; ptr &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= const_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Debe utilizarse con mucho cuidado. Modificar un objeto originalmente declarado como &lt;code&gt;const&lt;&#x2F;code&gt; produce comportamiento indefinido.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversion-de-enumeraciones&quot;&gt;Conversión de Enumeraciones&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;enum&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt; Estado&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;    Activo =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 1&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;    Inactivo =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;};&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Estado e &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; Activo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; valor &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;e&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversion-de-void&quot;&gt;Conversión de &lt;code&gt;void*&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Muy común en APIs antiguas y bibliotecas en C.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; numero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 42&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;void&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; ptr &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= &amp;amp;&lt;&#x2F;span&gt;&lt;span&gt;numero&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;= static_cast&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;*&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;ptr&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt; *&lt;&#x2F;span&gt;&lt;span&gt;entero &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;42&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conversion-definida-por-el-usuario&quot;&gt;Conversión Definida por el Usuario&lt;&#x2F;h1&gt;
+&lt;p&gt;Una clase puede definir cómo convertirse a otro tipo.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;class&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt; Peso&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;{&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;private&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    double&lt;&#x2F;span&gt;&lt;span&gt; valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;public&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;    Peso&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span style=&quot;color: #EBA0AC;font-style: italic;&quot;&gt; v&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;) :&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;v&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;    {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    operator&lt;&#x2F;span&gt;&lt;span&gt; double&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt; const&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;    {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;        return&lt;&#x2F;span&gt;&lt;span&gt; valor&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;};&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;font-style: italic;&quot;&gt;Peso&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; p&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;10.5&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;double&lt;&#x2F;span&gt;&lt;span&gt; kg &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; p&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Salida:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;10.5&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;buenas-practicas&quot;&gt;Buenas Prácticas&lt;&#x2F;h1&gt;
+&lt;p&gt;✅ Preferir &lt;code&gt;static_cast&lt;&#x2F;code&gt; sobre el cast estilo C.&lt;&#x2F;p&gt;
+&lt;p&gt;✅ Usar &lt;code&gt;dynamic_cast&lt;&#x2F;code&gt; cuando se necesite verificar tipos en jerarquías polimórficas.&lt;&#x2F;p&gt;
+&lt;p&gt;✅ Evitar &lt;code&gt;reinterpret_cast&lt;&#x2F;code&gt; salvo que realmente se comprenda lo que está ocurriendo a nivel de memoria.&lt;&#x2F;p&gt;
+&lt;p&gt;✅ Evitar eliminar &lt;code&gt;const&lt;&#x2F;code&gt; con &lt;code&gt;const_cast&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;✅ Activar todas las advertencias del compilador (&lt;code&gt;-Wall -Wextra&lt;&#x2F;code&gt; en GCC&#x2F;Clang).&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;resumen&quot;&gt;Resumen&lt;&#x2F;h1&gt;
+&lt;p&gt;C++ ofrece varios mecanismos de conversión, cada uno diseñado para situaciones específicas:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Conversión&lt;&#x2F;th&gt;&lt;th&gt;Uso Principal&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;static_cast&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Conversión segura entre tipos relacionados&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;dynamic_cast&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Verificación de tipos en herencia polimórfica&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;reinterpret_cast&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Reinterpretación de memoria&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;const_cast&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Agregar o quitar &lt;code&gt;const&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Cast estilo C&lt;&#x2F;td&gt;&lt;td&gt;Compatibilidad heredada (no recomendado)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;En la mayoría de las aplicaciones modernas, &lt;code&gt;static_cast&lt;&#x2F;code&gt; cubre prácticamente todas las necesidades habituales y debería ser tu primera opción al realizar conversiones explícitas.&lt;&#x2F;p&gt;
 </content>
         
     </entry>
