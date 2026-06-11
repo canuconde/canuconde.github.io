@@ -10,10 +10,6 @@
         <loc>https://canuconde.github.io/blog/</loc>
     </url>
     <url>
-        <loc>https://canuconde.github.io/blog/asdasd/</loc>
-        <lastmod>2026-06-20</lastmod>
-    </url>
-    <url>
         <loc>https://canuconde.github.io/blog/comparar-objetos-con-contains-en-java/</loc>
         <lastmod>2026-06-10</lastmod>
     </url>
@@ -40,6 +36,10 @@
     <url>
         <loc>https://canuconde.github.io/blog/manejo-de-paths-en-wxwidgets/</loc>
         <lastmod>2026-06-08</lastmod>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/blog/ordenar-coleccion-de-objetos-en-java/</loc>
+        <lastmod>2026-06-20</lastmod>
     </url>
     <url>
         <loc>https://canuconde.github.io/blog/page/1/</loc>
