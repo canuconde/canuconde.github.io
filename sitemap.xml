@@ -10,6 +10,10 @@
         <loc>https://canuconde.github.io/blog/</loc>
     </url>
     <url>
+        <loc>https://canuconde.github.io/blog/comparar-objetos-con-contains-en-java/</loc>
+        <lastmod>2026-06-10</lastmod>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/blog/compilar-con-gpp/</loc>
         <lastmod>2025-03-02</lastmod>
     </url>
@@ -56,6 +60,12 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/c/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/java/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/java/page/1/</loc>
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/linux/</loc>
