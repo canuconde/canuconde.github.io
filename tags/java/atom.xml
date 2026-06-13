@@ -23,8 +23,7 @@
         <link rel="alternate" type="text/html" href="https://canuconde.github.io/blog/ordenar-coleccion-de-objetos-en-java/"/>
         <id>https://canuconde.github.io/blog/ordenar-coleccion-de-objetos-en-java/</id>
         
-        <content type="html" xml:base="https://canuconde.github.io/blog/ordenar-coleccion-de-objetos-en-java/">&lt;h1 id=&quot;ordenando-objetos-en-java-con-sort-y-comparable&quot;&gt;Ordenando Objetos en Java con &lt;code&gt;sort()&lt;&#x2F;code&gt; y &lt;code&gt;Comparable&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
-&lt;p&gt;Una necesidad frecuente al trabajar con colecciones es ordenar objetos según algún criterio: por nombre, ID, fecha, precio o cualquier otro atributo.&lt;&#x2F;p&gt;
+        <content type="html" xml:base="https://canuconde.github.io/blog/ordenar-coleccion-de-objetos-en-java/">&lt;p&gt;Una necesidad frecuente al trabajar con colecciones es ordenar objetos según algún criterio: por nombre, ID, fecha, precio o cualquier otro atributo.&lt;&#x2F;p&gt;
 &lt;p&gt;Java proporciona el método &lt;code&gt;sort()&lt;&#x2F;code&gt; junto con la interfaz &lt;code&gt;Comparable&lt;&#x2F;code&gt; para definir el orden natural de una clase.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;la-interfaz-comparable&quot;&gt;La interfaz &lt;code&gt;Comparable&lt;&#x2F;code&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;Para que una clase pueda ordenarse automáticamente, debe implementar la interfaz &lt;code&gt;Comparable&amp;lt;T&amp;gt;&lt;&#x2F;code&gt; y sobrescribir el método &lt;code&gt;compareTo()&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;

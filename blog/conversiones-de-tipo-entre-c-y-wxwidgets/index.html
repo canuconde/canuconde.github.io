@@ -1,24 +1,4 @@
-<!doctype html>
-<html lang="es" data-theme="corporate">
-
-<head>
-    <title>Conversiones entre Tipos de C++ y wxWidgets | Canu Conde</title>
-
-    <!-- meta data -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="En este artículo repasaremos las conversiones más comunes que encontrarás en aplicaciones reales.">
-
-    <!-- stylesheets, fonts, feeds -->
-    <link rel="stylesheet" href="/css/main.css?hH2s4v" integrity="sha384-hH2s4vryya6XKroRtCnz08Zwyk3fHpM/0AhJxmqb3RDjzQjGMUAbezRx0t8NfkHI">
-    
-
-    <!-- favicon -->
-    
-
-    <!-- java script for setting theme as saved in local storage (needs to be inline to avoid flicker) -->
-    <script>
-        // select default theme based on preferred color scheme (as set in the browser)
+<!doctype html><html data-theme=corporate lang=es><head><title>Conversiones entre Tipos de C++ y wxWidgets | Canu Conde</title><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="En este artículo repasaremos las conversiones más comunes que encontrarás en aplicaciones reales." name=description><link href=/css/main.css?hH2s4v integrity=sha384-hH2s4vryya6XKroRtCnz08Zwyk3fHpM/0AhJxmqb3RDjzQjGMUAbezRx0t8NfkHI rel=stylesheet><script>// select default theme based on preferred color scheme (as set in the browser)
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             default_theme = 'corporate'
         } else {
@@ -37,586 +17,100 @@
                 btnEl.classList.add("btn-active")
                 btnEl.classList.add("btn-primary")
             }
-        })
-    </script>
-</head>
-
-<body class="h-screen">
-    
-    <div class="@container drawer min-h-full">
-        <input id="main-drawer" type="checkbox" class="drawer-toggle lg:hidden">
-        <div class="drawer-content flex min-h-full flex-col"><!-- to expand over the full screen even on short pages -->
-            <!-- navbar -->
-            <div class="fixed inset-x-0 top-0 z-10 text-primary-content bg-primary shadow-sm opacity-93">
-                <div class="flex flex-col items-center justify-between">
-                    <div class="navbar">
-                        <div class="navbar-start">
-                            <a
-                                class="btn btn-ghost hover:bg-primary-content hover:text-primary text-xl no-underline"
-                                href="/">Canu Conde</a>
-                        </div>
-                        <div class="navbar-center max-lg:hidden lg:flex">
-                            <ul class="menu menu-horizontal px-1 gap-x-2">
-                                
-                                        <li>
-
- 
-
-
-    
-
-
-
-<a href="/sigmacontable" class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md">
-        <span class="">Sigma Contable</span>
-</a>
-
-</li>
-                                    
-                                        <li>
-
- 
-
-
-    
-
-
-
-<a href="/eq4moc" class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md">
-        <span class="">Eq4moc</span>
-</a>
-
-</li>
-                                    
-                                        <li>
-
- 
-
-
-    
-
-
-
-<a href="/librodiariomayor" class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md">
-        <span class="">Libro Diario&#x2F;Mayor</span>
-</a>
-
-</li>
-                                    
-                                        <li>
-
- 
-
-
-    
-    
-
-
-
-<a href="/blog" class="bg-secondary text-secondary-content no-underline px-3 rounded-md">
-        <span class="">Blog</span>
-</a>
-
-</li>
-                                    
-                                        <li>
-
- 
-
-
-    
-
-
-
-<a href="/tags" class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md">
-        <span class="">Tags</span>
-</a>
-
-</li>
-                                    
-                                
-                            </ul>
-                        </div>
-                        <div class="navbar-end">
-                            
-                            
-                            
-                            <div class="max-md:hidden">
-                                <label tabindex="0" class="input text-primary bg-primary-content focus:outline-teal-500">
-                                    <svg role="img" aria-label="Search" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 h-[1em] opacity-50" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" /></svg>
-                                    <input id="desktop-search" type="search" class="search-input grow"
-                                        placeholder="Buscar">
-                                    <kbd class="kbd kbd-sm bg-primary text-primary-content">⌘</kbd>
-                                    <kbd class="kbd kbd-sm bg-primary text-primary-content">K</kbd>
-                                </label>
-                            </div>
-                            <label id="search-button" for="search-bar" aria-label="open search"
-                                class="btn btn-square btn-ghost swap swap-rotate hover:bg-primary-content hover:text-primary md:hidden">
-                                <svg role="img" aria-label="Search" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" /></svg>
-                            </label>
-                            
-                            
-                            <label for="main-drawer" aria-label="open sidebar"
-                                class="btn btn-square btn-ghost swap swap-rotate hover:bg-primary-content hover:text-primary lg:hidden">
-                                <svg role="img" aria-label="List" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 h-6 w-6 swap-off [:checked~*_&amp;]:!-rotate-45 [:checked~*_&amp;]:!opacity-0" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" /></svg>
-                                <svg role="img" aria-label="X" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 h-5 w-5 swap-on [:checked~*_&amp;]:!rotate-0 [:checked~*_&amp;]:!opacity-100" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" /></svg>
-                            </label>
-                            </div>
-                    </div>
-                    <div id="search-bar" class="hidden md:hidden pl-2 pr-2 pb-2 w-full">
-                        <label tabindex="0" class="input text-primary bg-primary-content w-full">
-                            <svg role="img" aria-label="Search" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 h-[1em] opacity-50" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" /></svg>
-                            <input id="mobile-search" type="search" class="search-input grow"
-                                placeholder="Buscar">
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            
-            
-
-            <!-- content -->
-            <div class="grid min-h-dvh grid-rows-[1fr_1px_auto_1px_auto] grid-cols-1
-                            ">
-
-                <!-- sidebar -->
-                <div
-                    class="relative col-start-1 row-span-full row-start-1 hidden max-lg:hidden bg-base-200">
-                    <div class="absolute inset-0">
-                        <div
-                            class="sticky top-16 pt-4 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*16))] w-full overflow-y-auto px-6">
-                            <div>
-                                <nav class="flex flex-col gap-8">
-                                    
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- main content -->
-                <main
-                    class="relative row-start-1 grid grid-cols-subgrid  m-4">
-                    <div
-                        class="isolate grid max-w-2xl grid-cols-1 gap-10 mt-14 md:pt-6 md:pb-24 xl:max-w-4xl mx-auto">
-                        <!-- search results shown between header and content -->
-                        <div tabindex="0"
-                            class="search-results dropdown-content hidden bg-base-200 text-base-content rounded-box z-1 p-2 shadow-2xl list-none max-w-4xl flex-row lg:absolute lg:right-0 lg:mr-4 max-md:mt-10">
-                            <div class="search-results__items"></div>
-                        </div>
-
-                        <div class="pb-8">
-                            
-
-
-<div class="breadcrumbs text-sm">
-    <ul>
-        <li><a href="/">Home</a></li>
-        
-        
-        
-        
-        
-        
-        <li><a class="breadcrumb-path" href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;">Posts</a></li>
-        
-        <li><a class="breadcrumb-path active" href="https:&#x2F;&#x2F;canuconde.github.io&#x2F;blog&#x2F;conversiones-de-tipo-entre-c-y-wxwidgets&#x2F;">Conversiones entre Tipos de C++ y wxWidgets</a></li>
-    </ul>
-</div>
-
-
-<h1>Conversiones entre Tipos de C++ y wxWidgets</h1>
-
-
-<div class="flex flex-wrap space-x-6 gap-y-2 pl-1 mb-4">
-    
-    <span class="flex items-center whitespace-nowrap">
-        <svg role="img" aria-label="Calendar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" /></svg>
-        <span class=""><time datetime="2026-05-06"> 6-may-2026</time></span>
-    </span>
-    
-
-    
-
-    
-    
-    <span class="flex items-center whitespace-nowrap">
-        <svg role="img" aria-label="Pencil" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" /></svg>
-        <span class="ml-1">329 palabras</span>
-    </span>
-    <span class="flex items-center whitespace-nowrap">
-        <svg role="img" aria-label="Clock" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" /></svg>
-        <span class="ml-1">2
-            minutos
-        </span>
-    </span>
-    
-
-    
-    
-    
-    
-    <span class="flex items-center whitespace-nowrap">
-        <svg role="img" aria-label="Tag" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /></svg>
-        <a href="https://canuconde.github.io/tags/c/" class="no-underline hover:underline">C++</a>
-    </span>
-    
-    <span class="flex items-center whitespace-nowrap">
-        <svg role="img" aria-label="Tag" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-4 w-4 mr-2 " viewBox="0 0 16 16"><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /></svg>
-        <a href="https://canuconde.github.io/tags/wxwidgets/" class="no-underline hover:underline">wxWidgets</a>
-    </span>
-    
-    
-    
-</div>
-
-
-<p>Cuando trabajamos con wxWidgets es habitual tener que convertir datos entre los tipos estándar de C++ y los tipos propios del framework.</p>
-<p>En este artículo repasaremos las conversiones más comunes que encontrarás en aplicaciones reales.</p>
-<h2 id="std-string-wxstring">std::string ↔ wxString</h2>
-<p>Probablemente la conversión más frecuente.</p>
-<h3 id="std-string-a-wxstring">std::string a wxString</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>string texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;Hola mundo&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #F9E2AF;font-style: italic;">wxString</span><span style="color: #89B4FA;font-style: italic;"> wxtexto</span><span style="color: #9399B2;">(</span><span style="color: #F9E2AF;font-style: italic;">texto</span><span style="color: #9399B2;">);</span></span></code></pre>
-<p>También puede hacerse explícitamente:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString wxtexto </span><span style="color: #94E2D5;">=</span><span style="color: #F9E2AF;"> wxString</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">FromUTF8</span><span style="color: #9399B2;">(</span><span>texto</span><span style="color: #9399B2;">);</span></span></code></pre>
-<p>Esta última opción es preferible cuando sabemos que el contenido está codificado en UTF-8.</p>
-<h3 id="wxstring-a-std-string">wxString a std::string</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;Hola mundo&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>string str </span><span style="color: #94E2D5;">=</span><span> texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ToStdString</span><span style="color: #9399B2;">();</span></span></code></pre>
-<p>Si necesitamos UTF-8:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>string str </span><span style="color: #94E2D5;">=</span><span> texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ToUTF8</span><span style="color: #9399B2;">().</span><span style="color: #89B4FA;font-style: italic;">data</span><span style="color: #9399B2;">();</span></span></code></pre>
-<hr />
-<h2 id="const-char-wxstring">const char* ↔ wxString</h2>
-<h3 id="const-char-a-wxstring">const char* a wxString</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">const char</span><span style="color: #94E2D5;">*</span><span> texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;Hola&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #F9E2AF;font-style: italic;">wxString</span><span style="color: #89B4FA;font-style: italic;"> wxtexto</span><span style="color: #9399B2;">(</span><span style="color: #F9E2AF;font-style: italic;">texto</span><span style="color: #9399B2;">);</span></span></code></pre>
-<p>O usando UTF-8:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString wxtexto </span><span style="color: #94E2D5;">=</span><span style="color: #F9E2AF;"> wxString</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">FromUTF8</span><span style="color: #9399B2;">(</span><span>texto</span><span style="color: #9399B2;">);</span></span></code></pre><h3 id="wxstring-a-const-char">wxString a const char*</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;Hola&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">const char</span><span style="color: #94E2D5;">*</span><span> ptr </span><span style="color: #94E2D5;">=</span><span> texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">mb_str</span><span style="color: #9399B2;">();</span></span></code></pre>
-<p>Para UTF-8:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">const char</span><span style="color: #94E2D5;">*</span><span> ptr </span><span style="color: #94E2D5;">=</span><span> texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">utf8_string</span><span style="color: #9399B2;">();</span></span></code></pre>
-<hr />
-<h2 id="int-wxstring">int ↔ wxString</h2>
-<h3 id="int-a-wxstring">int a wxString</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">int</span><span> numero </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 123</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #F9E2AF;"> wxString</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">Format</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;%d&quot;</span><span style="color: #9399B2;">,</span><span> numero</span><span style="color: #9399B2;">);</span></span></code></pre>
-<p>También:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #F9E2AF;"> std</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">to_string</span><span style="color: #9399B2;">(</span><span>numero</span><span style="color: #9399B2;">);</span></span></code></pre><h3 id="wxstring-a-int">wxString a int</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;123&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">long</span><span> valor</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">if</span><span style="color: #9399B2;"> (</span><span>texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ToLong</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>valor</span><span style="color: #9399B2;">))</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span style="color: #9399B2;font-style: italic;">    // Conversión exitosa</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
-<hr />
-<h2 id="double-wxstring">double ↔ wxString</h2>
-<h3 id="double-a-wxstring">double a wxString</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> precio </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> 123.45</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #F9E2AF;"> wxString</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">Format</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;%.2f&quot;</span><span style="color: #9399B2;">,</span><span> precio</span><span style="color: #9399B2;">);</span></span></code></pre><h3 id="wxstring-a-double">wxString a double</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;123.45&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> valor</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">if</span><span style="color: #9399B2;"> (</span><span>texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ToDouble</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>valor</span><span style="color: #9399B2;">))</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span style="color: #9399B2;font-style: italic;">    // Conversión exitosa</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
-<hr />
-<h2 id="bool-wxstring">bool ↔ wxString</h2>
-<h3 id="bool-a-wxstring">bool a wxString</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">bool</span><span> activo </span><span style="color: #94E2D5;">=</span><span style="color: #FAB387;"> true</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span> activo </span><span style="color: #94E2D5;">?</span><span style="color: #A6E3A1;"> &quot;true&quot;</span><span style="color: #94E2D5;"> :</span><span style="color: #A6E3A1;"> &quot;false&quot;</span><span style="color: #9399B2;">;</span></span></code></pre><h3 id="wxstring-a-bool">wxString a bool</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span><span style="color: #A6E3A1;"> &quot;true&quot;</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">bool</span><span> activo </span><span style="color: #94E2D5;">=</span><span> texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">CmpNoCase</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;true&quot;</span><span style="color: #9399B2;">)</span><span style="color: #94E2D5;"> ==</span><span style="color: #FAB387;"> 0</span><span style="color: #9399B2;">;</span></span></code></pre>
-<hr />
-<h2 id="std-vector">std::vector<wxString></h2>
-<p>Los contenedores estándar funcionan perfectamente con wxString.</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>vector</span><span style="color: #94E2D5;">&lt;</span><span>wxString</span><span style="color: #94E2D5;">&gt;</span><span> nombres</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>nombres</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">push_back</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;Juan&quot;</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"><span>nombres</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">push_back</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;Ana&quot;</span><span style="color: #9399B2;">);</span></span></code></pre>
-<hr />
-<h2 id="wxarraystring-std-vector">wxArrayString ↔ std::vector</h2>
-<h3 id="wxarraystring-a-std-vector">wxArrayString a std::vector</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxArrayString array</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>array</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">Add</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;Uno&quot;</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"><span>array</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">Add</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;Dos&quot;</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span style="color: #F9E2AF;font-style: italic;">vector</span><span style="color: #9399B2;">&lt;</span><span style="color: #F9E2AF;font-style: italic;">wxString</span><span style="color: #9399B2;">&gt;</span><span style="color: #89B4FA;font-style: italic;"> vec</span><span style="color: #9399B2;">(</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;font-style: italic;">    array</span><span>.</span><span style="color: #89B4FA;font-style: italic;">begin</span><span style="color: #9399B2;">(),</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;font-style: italic;">    array</span><span>.</span><span style="color: #89B4FA;font-style: italic;">end</span><span style="color: #9399B2;">()</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">);</span></span></code></pre><h3 id="std-vector-a-wxarraystring">std::vector a wxArrayString</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #F9E2AF;">std</span><span style="color: #9399B2;">::</span><span>vector</span><span style="color: #94E2D5;">&lt;</span><span>wxString</span><span style="color: #94E2D5;">&gt;</span><span> vec </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    &quot;Uno&quot;</span><span style="color: #9399B2;">,</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    &quot;Dos&quot;</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">};</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxArrayString array</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">for</span><span style="color: #9399B2;"> (</span><span style="color: #CBA6F7;">const auto</span><span style="color: #94E2D5;">&amp;</span><span> item </span><span style="color: #9399B2;">:</span><span> vec</span><span style="color: #9399B2;">)</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span>    array</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">Add</span><span style="color: #9399B2;">(</span><span>item</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
-<hr />
-<h2 id="sqlite-y-wxstring">SQLite y wxString</h2>
-<p>Cuando trabajamos con SQLite suele ser necesario convertir cadenas.</p>
-<h3 id="guardar-datos">Guardar datos</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">sqlite3_bind_text</span><span style="color: #9399B2;">(</span></span>
-<span class="giallo-l"><span>    stmt</span><span style="color: #9399B2;">,</span></span>
-<span class="giallo-l"><span style="color: #FAB387;">    1</span><span style="color: #9399B2;">,</span></span>
-<span class="giallo-l"><span>    nombre</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">utf8_string</span><span style="color: #9399B2;">(),</span></span>
-<span class="giallo-l"><span style="color: #94E2D5;">    -</span><span style="color: #FAB387;">1</span><span style="color: #9399B2;">,</span></span>
-<span class="giallo-l"><span>    SQLITE_TRANSIENT</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">);</span></span></code></pre><h3 id="leer-datos">Leer datos</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">const char</span><span style="color: #94E2D5;">*</span><span> texto </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #94E2D5;">    reinterpret_cast&lt;</span><span style="color: #CBA6F7;">const char</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span></span>
-<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">        sqlite3_column_text</span><span style="color: #9399B2;">(</span><span>stmt</span><span style="color: #9399B2;">,</span><span style="color: #FAB387;"> 0</span><span style="color: #9399B2;">)</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">    );</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxString nombre </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">    wxString</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">FromUTF8</span><span style="color: #9399B2;">(</span><span>texto</span><span style="color: #9399B2;">);</span></span></code></pre>
-<hr />
-<h2 id="wxdatetime-wxstring">wxDateTime ↔ wxString</h2>
-<h3 id="fecha-a-texto">Fecha a texto</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxDateTime fecha </span><span style="color: #94E2D5;">=</span><span style="color: #F9E2AF;"> wxDateTime</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">Now</span><span style="color: #9399B2;">();</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span>    fecha</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">FormatISODate</span><span style="color: #9399B2;">();</span></span></code></pre>
-<p>Resultado:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="plain"><span class="giallo-l"><span>2026-06-07</span></span></code></pre><h3 id="texto-a-fecha">Texto a fecha</h3>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxDateTime fecha</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>fecha</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ParseISODate</span><span style="color: #9399B2;">(</span></span>
-<span class="giallo-l"><span style="color: #A6E3A1;">    &quot;2026-06-07&quot;</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">);</span></span></code></pre>
-<hr />
-<h2 id="wxdatetime-std-chrono">wxDateTime ↔ std::chrono</h2>
-<p>A partir de C++20 es frecuente combinar wxWidgets con <code>std::chrono</code>.</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">auto</span><span> ahora </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">    std</span><span style="color: #9399B2;">::</span><span>chrono</span><span style="color: #9399B2;">::</span><span>system_clock</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">now</span><span style="color: #9399B2;">();</span></span></code></pre>
-<p>Para interoperar suele ser necesario trabajar mediante timestamps Unix.</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxDateTime fecha </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #F9E2AF;">    wxDateTime</span><span style="color: #9399B2;">::</span><span style="color: #89B4FA;font-style: italic;">Now</span><span style="color: #9399B2;">();</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">time_t</span><span> unixTime </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span>    fecha</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">GetTicks</span><span style="color: #9399B2;">();</span></span></code></pre>
-<hr />
-<h2 id="conversion-de-punteros">Conversión de punteros</h2>
-<p>En wxWidgets es habitual obtener punteros a clases derivadas.</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxWindow</span><span style="color: #94E2D5;">*</span><span> ventana </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #89B4FA;font-style: italic;">    FindWindow</span><span style="color: #9399B2;">(</span><span>ID_CLIENTE</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span>wxTextCtrl</span><span style="color: #94E2D5;">*</span><span> txtNombre </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span style="color: #94E2D5;">    dynamic_cast&lt;</span><span>wxTextCtrl</span><span style="color: #94E2D5;">*&gt;</span><span style="color: #9399B2;">(</span><span>ventana</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">if</span><span style="color: #9399B2;"> (</span><span>txtNombre</span><span style="color: #9399B2;">)</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span>    txtNombre</span><span style="color: #9399B2;">-&gt;</span><span style="color: #89B4FA;font-style: italic;">SetValue</span><span style="color: #9399B2;">(</span><span style="color: #A6E3A1;">&quot;Juan&quot;</span><span style="color: #9399B2;">);</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
-<hr />
-<h2 id="conversion-desde-controles">Conversión desde controles</h2>
-<p>Una operación extremadamente común consiste en leer un valor desde un control.</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span>wxString texto </span><span style="color: #94E2D5;">=</span></span>
-<span class="giallo-l"><span>    txtImporte</span><span style="color: #9399B2;">-&gt;</span><span style="color: #89B4FA;font-style: italic;">GetValue</span><span style="color: #9399B2;">();</span></span></code></pre>
-<p>Convertir a entero:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">long</span><span> importe</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">if</span><span style="color: #9399B2;"> (</span><span>texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ToLong</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>importe</span><span style="color: #9399B2;">))</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span style="color: #9399B2;font-style: italic;">    // OK</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
-<p>Convertir a decimal:</p>
-<pre class="giallo" style="color: #CDD6F4; background-color: #1E1E2E;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #CBA6F7;">double</span><span> importe</span><span style="color: #9399B2;">;</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span style="color: #CBA6F7;">if</span><span style="color: #9399B2;"> (</span><span>texto</span><span style="color: #9399B2;">.</span><span style="color: #89B4FA;font-style: italic;">ToDouble</span><span style="color: #9399B2;">(</span><span style="color: #94E2D5;">&amp;</span><span>importe</span><span style="color: #9399B2;">))</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">{</span></span>
-<span class="giallo-l"><span style="color: #9399B2;font-style: italic;">    // OK</span></span>
-<span class="giallo-l"><span style="color: #9399B2;">}</span></span></code></pre>
-<hr />
-<h2 id="buenas-practicas">Buenas Prácticas</h2>
-<ul>
-<li>Utilizar UTF-8 siempre que sea posible.</li>
-<li>Preferir <code>ToLong()</code> y <code>ToDouble()</code> antes que funciones como <code>atoi()</code> o <code>atof()</code>.</li>
-<li>Evitar conversiones innecesarias entre <code>wxString</code> y <code>std::string</code>.</li>
-<li>Mantener internamente un único formato de texto cuando sea posible.</li>
-<li>Verificar siempre el resultado de las conversiones numéricas.</li>
-<li>Utilizar <code>dynamic_cast</code> cuando se trabaje con jerarquías de controles.</li>
-</ul>
-<hr />
-<h2 id="resumen">Resumen</h2>
-<p>Las conversiones más utilizadas en wxWidgets son:</p>
-<table><thead><tr><th>Desde</th><th>Hacia</th></tr></thead><tbody>
-<tr><td>std::string</td><td>wxString</td></tr>
-<tr><td>wxString</td><td>std::string</td></tr>
-<tr><td>const char*</td><td>wxString</td></tr>
-<tr><td>wxString</td><td>const char*</td></tr>
-<tr><td>int</td><td>wxString</td></tr>
-<tr><td>wxString</td><td>int</td></tr>
-<tr><td>double</td><td>wxString</td></tr>
-<tr><td>wxString</td><td>double</td></tr>
-<tr><td>wxArrayString</td><td>std::vector</td></tr>
-<tr><td>wxDateTime</td><td>wxString</td></tr>
-</tbody></table>
-<p>Dominar estas conversiones simplifica enormemente el desarrollo de interfaces gráficas, bases de datos y aplicaciones empresariales construidas con wxWidgets.</p>
-
-
-
-
-
-
-
-                        </div>
-                    </div>
-                </main>
-
-                <!-- footer -->
-                <div class="row-start-3 ">
-                    
-
-                    
-                    <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded pt-6 gap-0">
-                        
-                        <nav class="grid grid-flow-col gap-4 mb-6">
-                            
-                            <a class="link link-hover"
-                                href="/about">Acerca de..</a>
-                            
-                        </nav>
-                        
-                        <nav class="grid grid-flow-col gap-4 mb-6">
-                            
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            
-                        </nav>
-                        
-                    </footer>
-                    
-                </div>
-            </div>
-        </div>
-
-        <div class="drawer-side z-60">
-            <label for="main-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="menu menu-lg bg-base-200 min-h-full w-80 p-4">
-                
-                
-                <li>
-
- 
-
-
-    
-
-
-
-<a href="/sigmacontable" class="link no-underline ">
-        Sigma Contable
-</a>
-
-</li>
-                
-                <li>
-
- 
-
-
-    
-
-
-
-<a href="/eq4moc" class="link no-underline ">
-        Eq4moc
-</a>
-
-</li>
-                
-                <li>
-
- 
-
-
-    
-
-
-
-<a href="/librodiariomayor" class="link no-underline ">
-        Libro Diario&#x2F;Mayor
-</a>
-
-</li>
-                
-                <li>
-
- 
-
-
-    
-    
-
-
-
-<a href="/blog" class="link no-underline menu-active">
-        Blog
-</a>
-
-</li>
-                
-                <li>
-
- 
-
-
-    
-
-
-
-<a href="/tags" class="link no-underline ">
-        Tags
-</a>
-
-</li>
-                
-                
-                <hr class="mt-2 mb-2">
-                
-                
-            </ul>
-        </div>
-    </div>
-
-    
-    <script src="/js/search.js?FH1MHE" integrity="sha384-FH1MHEacANbeZ3k1+ZOepBm+BEQ3yC/1GKPgoKmaH7WM4HZiDm3c08x2995Eer9/" lang="es"></script>
-    <script src="/elasticlunr.min.js?Q8viz7" integrity="sha384-Q8viz7rndi8MSNDtItDgVWNSrCumjepopRMlz2nElkWPRXDQAcfiZGJbrCJVXdtw" ></script>
-    
-    <script src="/lunr.stemmer.support.min.js?A0Vfx&#x2F;" integrity="sha384-A0Vfx/TDhoU6e4n+yHq8obaqc2ibS2c1bTImKO9GWTA1yIuAdL9pj3ozE+/qF/Ty" ></script>
-    <script src="/lunr.es.min.js?oI1aov" integrity="sha384-oI1aovUnlOSukHVWp5j0R9rOdDRc6Qo19pZzU7e+NaaQQL+x4mmCqUPjK+C3xAXa" ></script>
-    
-    
-</body>
+        })</script><body class=h-screen><div class="@container drawer min-h-full"><input class="drawer-toggle lg:hidden" id=main-drawer type=checkbox><div class="drawer-content flex min-h-full flex-col"><div class="fixed inset-x-0 top-0 z-10 text-primary-content bg-primary shadow-sm opacity-93"><div class="flex flex-col items-center justify-between"><div class=navbar><div class=navbar-start><a class="btn btn-ghost hover:bg-primary-content hover:text-primary text-xl no-underline" href=/>Canu Conde</a></div><div class="navbar-center max-lg:hidden lg:flex"><ul class="menu menu-horizontal px-1 gap-x-2"><li><a class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md" href=/sigmacontable> <span>Sigma Contable</span> </a><li><a class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md" href=/eq4moc> <span>Eq4moc</span> </a><li><a class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md" href=/librodiariomayor> <span>Libro Diario/Mayor</span> </a><li><a class="bg-secondary text-secondary-content no-underline px-3 rounded-md" href=/blog> <span>Blog</span> </a><li><a class="hover:bg-primary-content hover:text-primary no-underline px-3 rounded-md" href=/tags> <span>Tags</span> </a></ul></div><div class=navbar-end><label aria-label="open sidebar" class="btn btn-square btn-ghost swap swap-rotate hover:bg-primary-content hover:text-primary lg:hidden" for=main-drawer><svg class="inline-block h-4 w-4 mr-2 h-6 w-6 swap-off [:checked~*_&]:!-rotate-45 [:checked~*_&]:!opacity-0" viewbox="0 0 16 16" aria-label=List fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" fill-rule=evenodd /></svg> <svg class="inline-block h-4 w-4 mr-2 h-5 w-5 swap-on [:checked~*_&]:!rotate-0 [:checked~*_&]:!opacity-100" viewbox="0 0 16 16" aria-label=X fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></label></div></div><div class="hidden md:hidden pl-2 pr-2 pb-2 w-full" id=search-bar><label class="input text-primary bg-primary-content w-full" tabindex=0><svg class="inline-block h-4 w-4 mr-2 h-[1em] opacity-50" viewbox="0 0 16 16" aria-label=Search fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg> <input class="search-input grow" id=mobile-search placeholder=Buscar type=search></label></div></div></div><div class="grid min-h-dvh grid-rows-[1fr_1px_auto_1px_auto] grid-cols-1"><div class="relative col-start-1 row-span-full row-start-1 hidden max-lg:hidden bg-base-200"><div class="absolute inset-0"><div class="sticky top-16 pt-4 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*16))] w-full overflow-y-auto px-6"><div><nav class="flex flex-col gap-8"></nav></div></div></div></div><main class="relative row-start-1 grid grid-cols-subgrid m-4"><div class="isolate grid max-w-2xl grid-cols-1 gap-10 mt-14 md:pt-6 md:pb-24 xl:max-w-4xl mx-auto"><div class="search-results dropdown-content hidden bg-base-200 text-base-content rounded-box z-1 p-2 shadow-2xl list-none max-w-4xl flex-row lg:absolute lg:right-0 lg:mr-4 max-md:mt-10" tabindex=0><div class=search-results__items></div></div><div class=pb-8><div class="breadcrumbs text-sm"><ul><li><a href=/>Home</a><li><a class=breadcrumb-path href=https://canuconde.github.io/blog/>Posts</a><li><a class="breadcrumb-path active" href=https://canuconde.github.io/blog/conversiones-de-tipo-entre-c-y-wxwidgets/>Conversiones entre Tipos de C++ y wxWidgets</a></ul></div><h1>Conversiones entre Tipos de C++ y wxWidgets</h1><div class="flex flex-wrap space-x-6 gap-y-2 pl-1 mb-4"><span class="flex items-center whitespace-nowrap"> <svg class="inline-block h-4 w-4 mr-2 " viewbox="0 0 16 16" aria-label=Calendar fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/></svg> <span><time datetime=2026-05-06> 6-may-2026</time></span> </span><span class="flex items-center whitespace-nowrap"> <svg class="inline-block h-4 w-4 mr-2 " viewbox="0 0 16 16" aria-label=Pencil fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/></svg> <span class=ml-1>329 palabras</span> </span><span class="flex items-center whitespace-nowrap"> <svg class="inline-block h-4 w-4 mr-2 " viewbox="0 0 16 16" aria-label=Clock fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/></svg> <span class=ml-1>2 minutos </span> </span><span class="flex items-center whitespace-nowrap"> <svg class="inline-block h-4 w-4 mr-2 " viewbox="0 0 16 16" aria-label=Tag fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/></svg> <a class="no-underline hover:underline" href=https://canuconde.github.io/tags/c/>C++</a> </span><span class="flex items-center whitespace-nowrap"> <svg class="inline-block h-4 w-4 mr-2 " viewbox="0 0 16 16" aria-label=Tag fill=currentColor role=img xmlns=http://www.w3.org/2000/svg><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/></svg> <a class="no-underline hover:underline" href=https://canuconde.github.io/tags/wxwidgets/>wxWidgets</a> </span></div><p>Cuando trabajamos con wxWidgets es habitual tener que convertir datos entre los tipos estándar de C++ y los tipos propios del framework.<p>En este artículo repasaremos las conversiones más comunes que encontrarás en aplicaciones reales.<h2 id=std-string-wxstring>std::string ↔ wxString</h2><p>Probablemente la conversión más frecuente.<h3 id=std-string-a-wxstring>std::string a wxString</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#f9e2af>std</span><span style=color:#9399b2>::</span><span>string texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "Hola mundo"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#f9e2af;font-style:italic>wxString</span><span style=color:#89b4fa;font-style:italic> wxtexto</span><span style=color:#9399b2>(</span><span style=color:#f9e2af;font-style:italic>texto</span><span style=color:#9399b2>);</span></span></code></pre><p>También puede hacerse explícitamente:<pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString wxtexto </span><span style=color:#94e2d5>=</span><span style=color:#f9e2af> wxString</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>FromUTF8</span><span style=color:#9399b2>(</span><span>texto</span><span style=color:#9399b2>);</span></span></code></pre><p>Esta última opción es preferible cuando sabemos que el contenido está codificado en UTF-8.<h3 id=wxstring-a-std-string>wxString a std::string</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "Hola mundo"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#f9e2af>std</span><span style=color:#9399b2>::</span><span>string str </span><span style=color:#94e2d5>=</span><span> texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ToStdString</span><span style=color:#9399b2>();</span></span></code></pre><p>Si necesitamos UTF-8:<pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#f9e2af>std</span><span style=color:#9399b2>::</span><span>string str </span><span style=color:#94e2d5>=</span><span> texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ToUTF8</span><span style=color:#9399b2>().</span><span style=color:#89b4fa;font-style:italic>data</span><span style=color:#9399b2>();</span></span></code></pre><hr><h2 id=const-char-wxstring>const char* ↔ wxString</h2><h3 id=const-char-a-wxstring>const char* a wxString</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>const char</span><span style=color:#94e2d5>*</span><span> texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "Hola"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#f9e2af;font-style:italic>wxString</span><span style=color:#89b4fa;font-style:italic> wxtexto</span><span style=color:#9399b2>(</span><span style=color:#f9e2af;font-style:italic>texto</span><span style=color:#9399b2>);</span></span></code></pre><p>O usando UTF-8:<pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString wxtexto </span><span style=color:#94e2d5>=</span><span style=color:#f9e2af> wxString</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>FromUTF8</span><span style=color:#9399b2>(</span><span>texto</span><span style=color:#9399b2>);</span></span></code></pre><h3 id=wxstring-a-const-char>wxString a const char*</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "Hola"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>const char</span><span style=color:#94e2d5>*</span><span> ptr </span><span style=color:#94e2d5>=</span><span> texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>mb_str</span><span style=color:#9399b2>();</span></span></code></pre><p>Para UTF-8:<pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>const char</span><span style=color:#94e2d5>*</span><span> ptr </span><span style=color:#94e2d5>=</span><span> texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>utf8_string</span><span style=color:#9399b2>();</span></span></code></pre><hr><h2 id=int-wxstring>int ↔ wxString</h2><h3 id=int-a-wxstring>int a wxString</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>int</span><span> numero </span><span style=color:#94e2d5>=</span><span style=color:#fab387> 123</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#f9e2af> wxString</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>Format</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"%d"</span><span style=color:#9399b2>,</span><span> numero</span><span style=color:#9399b2>);</span></span></code></pre><p>También:<pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#f9e2af> std</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>to_string</span><span style=color:#9399b2>(</span><span>numero</span><span style=color:#9399b2>);</span></span></code></pre><h3 id=wxstring-a-int>wxString a int</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "123"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>long</span><span> valor</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>if</span><span style=color:#9399b2> (</span><span>texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ToLong</span><span style=color:#9399b2>(</span><span style=color:#94e2d5>&</span><span>valor</span><span style=color:#9399b2>))</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span style=color:#9399b2;font-style:italic>    // Conversión exitosa</span></span>
+<span class=giallo-l><span style=color:#9399b2>}</span></span></code></pre><hr><h2 id=double-wxstring>double ↔ wxString</h2><h3 id=double-a-wxstring>double a wxString</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>double</span><span> precio </span><span style=color:#94e2d5>=</span><span style=color:#fab387> 123.45</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#f9e2af> wxString</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>Format</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"%.2f"</span><span style=color:#9399b2>,</span><span> precio</span><span style=color:#9399b2>);</span></span></code></pre><h3 id=wxstring-a-double>wxString a double</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "123.45"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>double</span><span> valor</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>if</span><span style=color:#9399b2> (</span><span>texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ToDouble</span><span style=color:#9399b2>(</span><span style=color:#94e2d5>&</span><span>valor</span><span style=color:#9399b2>))</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span style=color:#9399b2;font-style:italic>    // Conversión exitosa</span></span>
+<span class=giallo-l><span style=color:#9399b2>}</span></span></code></pre><hr><h2 id=bool-wxstring>bool ↔ wxString</h2><h3 id=bool-a-wxstring>bool a wxString</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>bool</span><span> activo </span><span style=color:#94e2d5>=</span><span style=color:#fab387> true</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span> activo </span><span style=color:#94e2d5>?</span><span style=color:#a6e3a1> "true"</span><span style=color:#94e2d5> :</span><span style=color:#a6e3a1> "false"</span><span style=color:#9399b2>;</span></span></code></pre><h3 id=wxstring-a-bool>wxString a bool</h3><pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span><span style=color:#a6e3a1> "true"</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>bool</span><span> activo </span><span style=color:#94e2d5>=</span><span> texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>CmpNoCase</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"true"</span><span style=color:#9399b2>)</span><span style=color:#94e2d5> ==</span><span style=color:#fab387> 0</span><span style=color:#9399b2>;</span></span></code></pre><hr><h2 id=std-vector>std::vector<wxstring> <p>Los contenedores estándar funcionan perfectamente con wxString.</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#f9e2af>std</span><span style=color:#9399b2>::</span><span>vector</span><span style=color:#94e2d5>&lt;</span><span>wxString</span><span style=color:#94e2d5>></span><span> nombres</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>nombres</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>push_back</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"Juan"</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l><span>nombres</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>push_back</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"Ana"</span><span style=color:#9399b2>);</span></span></code></pre> <hr> <h2 id=wxarraystring-std-vector>wxArrayString ↔ std::vector</h2> <h3 id=wxarraystring-a-std-vector>wxArrayString a std::vector</h3> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxArrayString array</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>array</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>Add</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"Uno"</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l><span>array</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>Add</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"Dos"</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#f9e2af>std</span><span style=color:#9399b2>::</span><span style=color:#f9e2af;font-style:italic>vector</span><span style=color:#9399b2>&lt;</span><span style=color:#f9e2af;font-style:italic>wxString</span><span style=color:#9399b2>></span><span style=color:#89b4fa;font-style:italic> vec</span><span style=color:#9399b2>(</span></span>
+<span class=giallo-l><span style=color:#f9e2af;font-style:italic>    array</span><span>.</span><span style=color:#89b4fa;font-style:italic>begin</span><span style=color:#9399b2>(),</span></span>
+<span class=giallo-l><span style=color:#f9e2af;font-style:italic>    array</span><span>.</span><span style=color:#89b4fa;font-style:italic>end</span><span style=color:#9399b2>()</span></span>
+<span class=giallo-l><span style=color:#9399b2>);</span></span></code></pre><h3 id=std-vector-a-wxarraystring>std::vector a wxArrayString</h3> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#f9e2af>std</span><span style=color:#9399b2>::</span><span>vector</span><span style=color:#94e2d5>&lt;</span><span>wxString</span><span style=color:#94e2d5>></span><span> vec </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span style=color:#a6e3a1>    "Uno"</span><span style=color:#9399b2>,</span></span>
+<span class=giallo-l><span style=color:#a6e3a1>    "Dos"</span></span>
+<span class=giallo-l><span style=color:#9399b2>};</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxArrayString array</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>for</span><span style=color:#9399b2> (</span><span style=color:#cba6f7>const auto</span><span style=color:#94e2d5>&</span><span> item </span><span style=color:#9399b2>:</span><span> vec</span><span style=color:#9399b2>)</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span>    array</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>Add</span><span style=color:#9399b2>(</span><span>item</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l><span style=color:#9399b2>}</span></span></code></pre> <hr> <h2 id=sqlite-y-wxstring>SQLite y wxString</h2> <p>Cuando trabajamos con SQLite suele ser necesario convertir cadenas.</p> <h3 id=guardar-datos>Guardar datos</h3> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#89b4fa;font-style:italic>sqlite3_bind_text</span><span style=color:#9399b2>(</span></span>
+<span class=giallo-l><span>    stmt</span><span style=color:#9399b2>,</span></span>
+<span class=giallo-l><span style=color:#fab387>    1</span><span style=color:#9399b2>,</span></span>
+<span class=giallo-l><span>    nombre</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>utf8_string</span><span style=color:#9399b2>(),</span></span>
+<span class=giallo-l><span style=color:#94e2d5>    -</span><span style=color:#fab387>1</span><span style=color:#9399b2>,</span></span>
+<span class=giallo-l><span>    SQLITE_TRANSIENT</span></span>
+<span class=giallo-l><span style=color:#9399b2>);</span></span></code></pre><h3 id=leer-datos>Leer datos</h3> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>const char</span><span style=color:#94e2d5>*</span><span> texto </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#94e2d5>    reinterpret_cast&lt;</span><span style=color:#cba6f7>const char</span><span style=color:#94e2d5>*></span><span style=color:#9399b2>(</span></span>
+<span class=giallo-l><span style=color:#89b4fa;font-style:italic>        sqlite3_column_text</span><span style=color:#9399b2>(</span><span>stmt</span><span style=color:#9399b2>,</span><span style=color:#fab387> 0</span><span style=color:#9399b2>)</span></span>
+<span class=giallo-l><span style=color:#9399b2>    );</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxString nombre </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#f9e2af>    wxString</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>FromUTF8</span><span style=color:#9399b2>(</span><span>texto</span><span style=color:#9399b2>);</span></span></code></pre> <hr> <h2 id=wxdatetime-wxstring>wxDateTime ↔ wxString</h2> <h3 id=fecha-a-texto>Fecha a texto</h3> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxDateTime fecha </span><span style=color:#94e2d5>=</span><span style=color:#f9e2af> wxDateTime</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>Now</span><span style=color:#9399b2>();</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span>    fecha</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>FormatISODate</span><span style=color:#9399b2>();</span></span></code></pre> <p>Resultado:</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=plain><span class=giallo-l><span>2026-06-07</span></span></code></pre><h3 id=texto-a-fecha>Texto a fecha</h3> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxDateTime fecha</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>fecha</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ParseISODate</span><span style=color:#9399b2>(</span></span>
+<span class=giallo-l><span style=color:#a6e3a1>    "2026-06-07"</span></span>
+<span class=giallo-l><span style=color:#9399b2>);</span></span></code></pre> <hr> <h2 id=wxdatetime-std-chrono>wxDateTime ↔ std::chrono</h2> <p>A partir de C++20 es frecuente combinar wxWidgets con <code>std::chrono</code>.</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>auto</span><span> ahora </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#f9e2af>    std</span><span style=color:#9399b2>::</span><span>chrono</span><span style=color:#9399b2>::</span><span>system_clock</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>now</span><span style=color:#9399b2>();</span></span></code></pre> <p>Para interoperar suele ser necesario trabajar mediante timestamps Unix.</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxDateTime fecha </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#f9e2af>    wxDateTime</span><span style=color:#9399b2>::</span><span style=color:#89b4fa;font-style:italic>Now</span><span style=color:#9399b2>();</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>time_t</span><span> unixTime </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span>    fecha</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>GetTicks</span><span style=color:#9399b2>();</span></span></code></pre> <hr> <h2 id=conversion-de-punteros>Conversión de punteros</h2> <p>En wxWidgets es habitual obtener punteros a clases derivadas.</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxWindow</span><span style=color:#94e2d5>*</span><span> ventana </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#89b4fa;font-style:italic>    FindWindow</span><span style=color:#9399b2>(</span><span>ID_CLIENTE</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>wxTextCtrl</span><span style=color:#94e2d5>*</span><span> txtNombre </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span style=color:#94e2d5>    dynamic_cast&lt;</span><span>wxTextCtrl</span><span style=color:#94e2d5>*></span><span style=color:#9399b2>(</span><span>ventana</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>if</span><span style=color:#9399b2> (</span><span>txtNombre</span><span style=color:#9399b2>)</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span>    txtNombre</span><span style=color:#9399b2>-></span><span style=color:#89b4fa;font-style:italic>SetValue</span><span style=color:#9399b2>(</span><span style=color:#a6e3a1>"Juan"</span><span style=color:#9399b2>);</span></span>
+<span class=giallo-l><span style=color:#9399b2>}</span></span></code></pre> <hr> <h2 id=conversion-desde-controles>Conversión desde controles</h2> <p>Una operación extremadamente común consiste en leer un valor desde un control.</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span>wxString texto </span><span style=color:#94e2d5>=</span></span>
+<span class=giallo-l><span>    txtImporte</span><span style=color:#9399b2>-></span><span style=color:#89b4fa;font-style:italic>GetValue</span><span style=color:#9399b2>();</span></span></code></pre> <p>Convertir a entero:</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>long</span><span> importe</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>if</span><span style=color:#9399b2> (</span><span>texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ToLong</span><span style=color:#9399b2>(</span><span style=color:#94e2d5>&</span><span>importe</span><span style=color:#9399b2>))</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span style=color:#9399b2;font-style:italic>    // OK</span></span>
+<span class=giallo-l><span style=color:#9399b2>}</span></span></code></pre> <p>Convertir a decimal:</p> <pre class=giallo style=color:#cdd6f4;background-color:#1e1e2e><code data-lang=cpp><span class=giallo-l><span style=color:#cba6f7>double</span><span> importe</span><span style=color:#9399b2>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span style=color:#cba6f7>if</span><span style=color:#9399b2> (</span><span>texto</span><span style=color:#9399b2>.</span><span style=color:#89b4fa;font-style:italic>ToDouble</span><span style=color:#9399b2>(</span><span style=color:#94e2d5>&</span><span>importe</span><span style=color:#9399b2>))</span></span>
+<span class=giallo-l><span style=color:#9399b2>{</span></span>
+<span class=giallo-l><span style=color:#9399b2;font-style:italic>    // OK</span></span>
+<span class=giallo-l><span style=color:#9399b2>}</span></span></code></pre> <hr> <h2 id=buenas-practicas>Buenas Prácticas</h2> <ul><li>Utilizar UTF-8 siempre que sea posible.<li>Preferir <code>ToLong()</code> y <code>ToDouble()</code> antes que funciones como <code>atoi()</code> o <code>atof()</code>.<li>Evitar conversiones innecesarias entre <code>wxString</code> y <code>std::string</code>.<li>Mantener internamente un único formato de texto cuando sea posible.<li>Verificar siempre el resultado de las conversiones numéricas.<li>Utilizar <code>dynamic_cast</code> cuando se trabaje con jerarquías de controles.</ul> <hr> <h2 id=resumen>Resumen</h2> <p>Las conversiones más utilizadas en wxWidgets son:</p> <table><thead><tr><th>Desde<th>Hacia<tbody><tr><td>std::string<td>wxString<tr><td>wxString<td>std::string<tr><td>const char*<td>wxString<tr><td>wxString<td>const char*<tr><td>int<td>wxString<tr><td>wxString<td>int<tr><td>double<td>wxString<tr><td>wxString<td>double<tr><td>wxArrayString<td>std::vector<tr><td>wxDateTime<td>wxString</table> <p>Dominar estas conversiones simplifica enormemente el desarrollo de interfaces gráficas, bases de datos y aplicaciones empresariales construidas con wxWidgets.</p>  <div class=row-start-3><footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded pt-6 gap-0"><nav class="grid grid-flow-col gap-4 mb-6"><a class="link link-hover" href=/about>Acerca de..</a></nav><nav class="grid grid-flow-col gap-4 mb-6"></nav></footer></div> <div class="drawer-side z-60"><label aria-label="close sidebar" class=drawer-overlay for=main-drawer></label><ul class="menu menu-lg bg-base-200 min-h-full w-80 p-4"><li><a class="link no-underline" href=/sigmacontable> Sigma Contable </a><li><a class="link no-underline" href=/eq4moc> Eq4moc </a><li><a class="link no-underline" href=/librodiariomayor> Libro Diario/Mayor </a><li><a class="link no-underline menu-active" href=/blog> Blog </a><li><a class="link no-underline" href=/tags> Tags </a></li><hr class="mt-2 mb-2"></ul></div> 
