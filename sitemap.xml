@@ -53,6 +53,10 @@
         <loc>https://canuconde.github.io/blog/page/1/</loc>
     </url>
     <url>
+        <loc>https://canuconde.github.io/blog/usando-ia-en-c/</loc>
+        <lastmod>2026-06-30</lastmod>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/directors/</loc>
     </url>
     <url>
@@ -78,6 +82,12 @@
         <loc>https://canuconde.github.io/tags/c/page/1/</loc>
     </url>
     <url>
+        <loc>https://canuconde.github.io/tags/ia/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/ia/page/1/</loc>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/tags/java/</loc>
     </url>
     <url>
@@ -88,6 +98,12 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/linux/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/memoriaforge/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/memoriaforge/page/1/</loc>
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/wxwidgets/</loc>
