@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Canu Conde - Linux</title>
+    <subtitle>Mi sitio personal</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://canuconde.github.io/en/tags/linux/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://canuconde.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-05-10T00:00:00+00:00</updated>
+    <id>https://canuconde.github.io/en/tags/linux/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Installing e16 on Debian</title>
+        <published>2026-05-10T00:00:00+00:00</published>
+        <updated>2026-05-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              canu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://canuconde.github.io/en/blog/instalando-e16-el-mejor-wm-en-debian/"/>
+        <id>https://canuconde.github.io/en/blog/instalando-e16-el-mejor-wm-en-debian/</id>
+        
+        <content type="html" xml:base="https://canuconde.github.io/en/blog/instalando-e16-el-mejor-wm-en-debian/">&lt;h1 id=&quot;enlightenment-16-e16&quot;&gt;Enlightenment 16 - [e16]&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;strong&gt;e16&lt;&#x2F;strong&gt; is an ultra-lightweight desktop environment from the early 2000s that, despite being a little old, remains fully functional and beautiful!&lt;&#x2F;p&gt;
+&lt;p&gt;Unfortunately, the e16 package is no longer included in the Debian repositories. However, we can still install it, either by compiling it from source or by using prebuilt RPM packages.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-use-e16&quot;&gt;Why use e16?&lt;&#x2F;h2&gt;
+&lt;p&gt;Why? There is no reason.&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s &lt;em&gt;lightweight&lt;&#x2F;em&gt;, &lt;em&gt;beautiful&lt;&#x2F;em&gt;, and highly &lt;em&gt;customizable&lt;&#x2F;em&gt;. It also comes with a huge selection of themes that will take you back to the early 2000s.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;e16.jpg&quot; alt=&quot;Desktop screenshot&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;installing-e16&quot;&gt;Installing e16&lt;&#x2F;h1&gt;
+&lt;h3 id=&quot;option-1-install-from-source&quot;&gt;Option 1: Install from source&lt;&#x2F;h3&gt;
+&lt;p&gt;The recommended option: compile the binaries directly from the source code.&lt;&#x2F;p&gt;
+&lt;p&gt;You can obtain the source code and installation instructions here: &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;www.enlightenment.org&#x2F;e16&quot;&gt;www.enlightenment.org&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Install the required dependencies and then run:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;.&#x2F;configure&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;make&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; make install&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;option-2-downloading-the-binaries&quot;&gt;Option 2: Downloading the binaries&lt;&#x2F;h3&gt;
+&lt;p&gt;If you don&#x27;t want to spend time compiling or waste disk space on build dependencies, you can download precompiled binaries directly.&lt;&#x2F;p&gt;
+&lt;p&gt;Before continuing, we need to install two things:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ImLib2&lt;&#x2F;strong&gt;, which is a dependency of e16.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Alien&lt;&#x2F;strong&gt;, which we will use to convert &lt;code&gt;.rpm&lt;&#x2F;code&gt; packages (Red Hat) into &lt;code&gt;.deb&lt;&#x2F;code&gt; packages (Debian).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; apt install libimlib2 alien&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now download e16 from its &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;sourceforge.net&#x2F;projects&#x2F;enlightenment&#x2F;files&#x2F;e16&#x2F;&quot;&gt;repositories&lt;&#x2F;a&gt;. Then convert the RPM package using Alien and install it.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; alien -d e16-1.0.31-1.fc42.x86_64.rpm&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; dpkg -i e16_1.0.31-2_amd64.deb&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can now start the new desktop environment from your display manager.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also verify that e16 is installed correctly by launching it inside a window:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;e16&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; -w 1200x720&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you&#x27;re old-school and still using xinit to start your session, simply add &lt;code&gt;starte16&lt;&#x2F;code&gt; to your &lt;code&gt;.xinitrc&lt;&#x2F;code&gt; and run &lt;code&gt;startx&lt;&#x2F;code&gt; to launch the desktop.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;configuring-the-desktop&quot;&gt;Configuring the desktop&lt;&#x2F;h1&gt;
+&lt;p&gt;Like all minimalist desktop environments, e16 needs some configuration to make it behave exactly the way we want. All configuration files are located inside your home directory, and editing just a few text files is enough to customize everything.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F38BA8;font-style: italic;&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; ~&#x2F;.e16&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Applications can be launched by left-clicking anywhere on the desktop.&lt;&#x2F;p&gt;
+&lt;p&gt;Right-clicking opens the configuration menu.&lt;&#x2F;p&gt;
+&lt;p&gt;Holding Alt and right-clicking a window allows you to modify its properties.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;application-menu&quot;&gt;Application menu&lt;&#x2F;h2&gt;
+&lt;p&gt;If you want to add or modify applications that appear in the menu, edit the following file:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;nano&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; ~&#x2F;.e16&#x2F;menus&#x2F;user_apps.menu&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;themes&quot;&gt;Themes&lt;&#x2F;h2&gt;
+&lt;p&gt;Winter is the default theme and, although it is beautiful, it only provides two wallpapers: Boring Gray and Vomit Green.&lt;&#x2F;p&gt;
+&lt;p&gt;You can add any image you want as a wallpaper by copying it to &lt;code&gt;~&#x2F;.e16&#x2F;backgrounds&lt;&#x2F;code&gt;, then selecting it through the desktop right-click menu.&lt;&#x2F;p&gt;
+&lt;p&gt;By default, only the &quot;winter&quot; theme is installed, but you can download many more.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is a huge collection of e16 themes, all featuring that classic early-2000s retro look: &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;themes.effx.us&#x2F;e16-Documentation.html#Theme%20Preview%20and%20Downloads&quot;&gt;https:&#x2F;&#x2F;themes.effx.us&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Downloaded &lt;code&gt;.etheme&lt;&#x2F;code&gt; files should be placed in:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.e16&#x2F;themes&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here are two suggestions:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: left&quot;&gt;23ozGlass&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;XPe&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;themes.effx.us&#x2F;packages&#x2F;e16&#x2F;23ozGlass.etheme&quot;&gt;&lt;img src=&quot;&#x2F;images&#x2F;e16&#x2F;glass.jpg&quot; alt=&quot;Glass&quot; &#x2F;&gt;&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;themes.effx.us&#x2F;packages&#x2F;e16&#x2F;XPe.etheme&quot;&gt;&lt;img src=&quot;&#x2F;images&#x2F;e16&#x2F;xpe.jpg&quot; alt=&quot;XPe&quot; &#x2F;&gt;&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h4 id=&quot;side-note&quot;&gt;Side note&lt;&#x2F;h4&gt;
+&lt;p&gt;At the time of writing this article, I am using the XPe theme. Since I wanted it to blend better with Plasma&#x27;s Breeze Dark appearance, I wrote a small script to desaturate all theme images.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F5C2E7;font-style: italic;&quot;&gt;#!&#x2F;bin&#x2F;bash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; . -name &amp;quot;*.png&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt; while&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F38BA8;font-style: italic;&quot;&gt; read&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; img&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt; do&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;    magick&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;$img&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot; -modulate 65,0,100 &amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;$img&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;done&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Basically, it recursively scans a directory and modifies PNG images by reducing brightness to 65% and saturation to 0%.&lt;&#x2F;p&gt;
+&lt;p&gt;I ran this script inside:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.e16&#x2F;themes&#x2F;XPe&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here is the result and the modified theme.&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: center&quot;&gt;XPe Dark&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;&lt;a href=&quot;&#x2F;files&#x2F;e16&#x2F;XPeDark.etheme&quot;&gt;&lt;img src=&quot;&#x2F;images&#x2F;e16&#x2F;xpedark.jpg&quot; alt=&quot;XPe&quot; &#x2F;&gt;&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;You&#x27;re welcome.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;keyboard-shortcuts&quot;&gt;Keyboard shortcuts&lt;&#x2F;h2&gt;
+&lt;p&gt;With e16, we don&#x27;t need menus or toolbars. Everything can be done through keyboard shortcuts.&lt;&#x2F;p&gt;
+&lt;p&gt;Here are some basic ones:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Shift + Alt + Arrow Keys — Switch desktop areas.&lt;&#x2F;li&gt;
+&lt;li&gt;Ctrl + Alt + Arrow Keys — Switch virtual desktops.&lt;&#x2F;li&gt;
+&lt;li&gt;Ctrl + Alt + X — Close an application. Ctrl + Alt + K — Kill the process.&lt;&#x2F;li&gt;
+&lt;li&gt;Ctrl + Alt + I — Iconify a window.&lt;&#x2F;li&gt;
+&lt;li&gt;Ctrl + Alt + F — Toggle fullscreen mode.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Let&#x27;s add some custom shortcuts.&lt;&#x2F;p&gt;
+&lt;p&gt;First, copy the default bindings file into your personal configuration directory:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;### Depending on how e16 was installed,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;### the file may be located under:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;font-style: italic;&quot;&gt;### &#x2F;usr&#x2F;local&#x2F;share or &#x2F;usr&#x2F;share&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;cp&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &#x2F;usr&#x2F;share&#x2F;e16&#x2F;config&#x2F;bindings.cfg ~&#x2F;.e16&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now edit &lt;code&gt;~&#x2F;.e16&#x2F;bindings.cfg&lt;&#x2F;code&gt; and add your own shortcuts.&lt;&#x2F;p&gt;
+&lt;p&gt;For example:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;KeyDown    4        1 exec konsole&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This launches Konsole using Super_L (4) + 1.&lt;&#x2F;p&gt;
+&lt;p&gt;Or:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;KeyDown    - XF86AudioRaiseVolume exec amixer set Master 5%+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This increases the volume by 5% using ALSA.&lt;&#x2F;p&gt;
+&lt;p&gt;If you need to discover special key names like the one above, run &lt;code&gt;xev&lt;&#x2F;code&gt;, press the desired keyboard key, mouse button, or gamepad button, and inspect the output.&lt;&#x2F;p&gt;
+&lt;p&gt;(&lt;code&gt;xev&lt;&#x2F;code&gt; is included in the &lt;code&gt;x11-utils&lt;&#x2F;code&gt; package.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;session&quot;&gt;Session&lt;&#x2F;h2&gt;
+&lt;p&gt;You will probably want to start programs automatically or perform certain actions when your session begins.&lt;&#x2F;p&gt;
+&lt;p&gt;To do that, create three directories inside &lt;code&gt;~&#x2F;.e16&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;~&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── .e16&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ├── Init&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ├── Start&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    ├── Stop&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can place scripts inside these directories and they will be executed automatically:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;At session startup if they are inside &lt;code&gt;Init&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Every time e16 starts or restarts if they are inside &lt;code&gt;Start&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;When the session ends if they are inside &lt;code&gt;Stop&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;For example, let&#x27;s create a file called &lt;code&gt;kdeconnect.sh&lt;&#x2F;code&gt; inside &lt;code&gt;Start&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;First make it executable:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;chmod&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; +x ~&#x2F;.e16&#x2F;Start&#x2F;kdeconnect.sh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then edit it:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F5C2E7;font-style: italic;&quot;&gt;#!&#x2F;bin&#x2F;bash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;kdeconnectd&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; --replace&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt; &amp;amp;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This will start the KDE Connect daemon every time e16 starts or restarts.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;integration&quot;&gt;Integration&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;reboot-and-shutdown&quot;&gt;Reboot and shutdown&lt;&#x2F;h3&gt;
+&lt;p&gt;By default, the user menu only allows you to log out.&lt;&#x2F;p&gt;
+&lt;p&gt;You can enable Reboot and Shutdown options through the configuration menu (right-click on the desktop) by enabling them in the session settings.&lt;&#x2F;p&gt;
+&lt;p&gt;The options will appear, but they will probably not work yet.&lt;&#x2F;p&gt;
+&lt;p&gt;To fix this, edit &lt;code&gt;~&#x2F;.e16&#x2F;e_config--0.0.cfg&lt;&#x2F;code&gt; and modify the following lines:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;misc.session.cmd_reboot&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; = systemctl reboot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;misc.session.cmd_halt&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; = systemctl poweroff&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;qt-and-gtk-integration&quot;&gt;Qt and GTK integration&lt;&#x2F;h3&gt;
+&lt;p&gt;The final step is configuring environment variables so that GTK and Qt applications correctly inherit your preferred settings.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are using xinit, edit &lt;code&gt;~&#x2F;.xinitrc&lt;&#x2F;code&gt; (create it if it doesn&#x27;t exist) and add:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; GTK_THEME&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;Breeze-Dark&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; QT_QPA_PLATFORMTHEME&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;qt6ct&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; XDG_CURRENT_DESKTOP&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;Enlightenment&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;dbus-run-session&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; starte16&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This allows applications to pick up your desktop settings correctly.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also do this from the X11 session file:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;nano&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &#x2F;usr&#x2F;share&#x2F;xsessions&#x2F;e16-session.desktop&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Add the variables before the &lt;code&gt;exec&lt;&#x2F;code&gt; command.&lt;&#x2F;p&gt;
+&lt;p&gt;In my case, I modified it as follows:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; XDG_MENU_PREFIX&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;plasma-&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; XDG_SESSION_DESKTOP&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;KDE&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; XDG_SESSION_TYPE&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;x11&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; XDG_CURRENT_DESKTOP&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;KDE&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; DESKTOP_SESSION&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;plasmax11&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; KDE_SESSION_UID&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;1000&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; QT_ACCESSIBILITY&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; KDE_SESSION_VERSION&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; KDE_FULL_SESSION&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;true&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;export&lt;&#x2F;span&gt;&lt;span&gt; KDE_APPLICATIONS_AS_SCOPE&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;dbus-run-session&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; starte16&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This gives me full KDE Plasma integration while still using e16, allowing me to use &lt;code&gt;systemsettings&lt;&#x2F;code&gt; to configure the visual appearance and the rest of the system.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h1&gt;
+&lt;p&gt;e16 is not the most modern desktop environment, nor the most popular, nor the one with the most features. Yet it remains one of the most enjoyable environments to use.&lt;&#x2F;p&gt;
+&lt;p&gt;It is lightweight, fast, stable, and has a unique aesthetic that feels frozen in a time when desktop environments had a personality of their own. Since it is built around simple configuration files, it can be adapted precisely to your needs without relying on complex tools.&lt;&#x2F;p&gt;
+&lt;p&gt;It may not be for everyone. But if you enjoy Linux, customizing your system, and keeping old software alive long after its heyday, it is definitely worth giving e16 a try.&lt;&#x2F;p&gt;
+&lt;p&gt;So there you have it. Welcome to the year 2000.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

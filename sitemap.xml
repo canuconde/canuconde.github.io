@@ -30,6 +30,10 @@
         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
+        <loc>https://canuconde.github.io/blog/instalando-e16-el-mejor-wm-en-debian/</loc>
+        <lastmod>2026-05-10</lastmod>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/blog/manejo-de-archivos-y-directorios-en-wxwidgets/</loc>
         <lastmod>2026-06-08</lastmod>
     </url>
@@ -60,6 +64,46 @@
         <loc>https://canuconde.github.io/directors/</loc>
     </url>
     <url>
+        <loc>https://canuconde.github.io/en/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/about/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/blog/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/blog/instalando-e16-el-mejor-wm-en-debian/</loc>
+        <lastmod>2026-05-10</lastmod>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/directors/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/eq4moc/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/memoriaforge/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/e16/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/e16/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/linux/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/linux/page/1/</loc>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/eq4moc/</loc>
     </url>
     <url>
@@ -67,7 +111,6 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/memoriaforge/</loc>
-        <lastmod>2026-06-20</lastmod>
     </url>
     <url>
         <loc>https://canuconde.github.io/sigmacontable/</loc>
@@ -80,6 +123,12 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/c/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/e16/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/tags/e16/page/1/</loc>
     </url>
     <url>
         <loc>https://canuconde.github.io/tags/ia/</loc>
