@@ -31,7 +31,7 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/blog/instalando-e16-el-mejor-wm-en-debian/</loc>
-        <lastmod>2026-05-10</lastmod>
+        <lastmod>2026-06-23</lastmod>
     </url>
     <url>
         <loc>https://canuconde.github.io/blog/manejo-de-archivos-y-directorios-en-wxwidgets/</loc>
@@ -74,10 +74,14 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/en/blog/instalando-e16-el-mejor-wm-en-debian/</loc>
-        <lastmod>2026-05-10</lastmod>
+        <lastmod>2026-06-23</lastmod>
     </url>
     <url>
         <loc>https://canuconde.github.io/en/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/blog/usando-ia-en-c/</loc>
+        <lastmod>2026-06-30</lastmod>
     </url>
     <url>
         <loc>https://canuconde.github.io/en/directors/</loc>
@@ -92,6 +96,18 @@
         <loc>https://canuconde.github.io/en/tags/</loc>
     </url>
     <url>
+        <loc>https://canuconde.github.io/en/tags/ai/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/ai/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/c/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/c/page/1/</loc>
+    </url>
+    <url>
         <loc>https://canuconde.github.io/en/tags/e16/</loc>
     </url>
     <url>
@@ -102,6 +118,12 @@
     </url>
     <url>
         <loc>https://canuconde.github.io/en/tags/linux/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/memoriaforge/</loc>
+    </url>
+    <url>
+        <loc>https://canuconde.github.io/en/tags/memoriaforge/page/1/</loc>
     </url>
     <url>
         <loc>https://canuconde.github.io/eq4moc/</loc>

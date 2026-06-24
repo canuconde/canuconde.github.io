@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Canu Conde - C++</title>
+    <subtitle>Mi sitio personal</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://canuconde.github.io/en/tags/c/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://canuconde.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-06-30T00:00:00+00:00</updated>
+    <id>https://canuconde.github.io/en/tags/c/atom.xml</id>
+    <entry xml:lang="en">
+        <title>How to Use an AI Model in C++</title>
+        <published>2026-06-30T00:00:00+00:00</published>
+        <updated>2026-06-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              canu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://canuconde.github.io/en/blog/usando-ia-en-c/"/>
+        <id>https://canuconde.github.io/en/blog/usando-ia-en-c/</id>
+        
+        <content type="html" xml:base="https://canuconde.github.io/en/blog/usando-ia-en-c/">&lt;h1 id=&quot;how-to-use-an-ai-model-in-c&quot;&gt;How to Use an AI Model in C++&lt;&#x2F;h1&gt;
+&lt;p&gt;In this article, we&#x27;ll see how to integrate a local AI model into a C++ project using MemoriaForge, a lightweight library that simplifies the use of GGUF models without requiring direct interaction with the llama.cpp API.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-use-local-ai&quot;&gt;Why Use Local AI?&lt;&#x2F;h2&gt;
+&lt;p&gt;Running a language model locally offers several advantages:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;It does not depend on external services.&lt;&#x2F;li&gt;
+&lt;li&gt;It works without an Internet connection.&lt;&#x2F;li&gt;
+&lt;li&gt;Data remains on the user&#x27;s machine.&lt;&#x2F;li&gt;
+&lt;li&gt;There are no costs per query or subscription fees.&lt;&#x2F;li&gt;
+&lt;li&gt;It allows distributing fully autonomous intelligent applications.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This is especially useful for personal assistants, productivity tools, video games, automation, and business software.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-problem-with-integrating-llama-cpp&quot;&gt;The Problem with Integrating llama.cpp&lt;&#x2F;h2&gt;
+&lt;p&gt;llama.cpp is one of the most popular projects for running language models on conventional hardware. However, its API is designed to provide flexibility and low-level access.&lt;&#x2F;p&gt;
+&lt;p&gt;For many applications, this means implementing repetitive tasks such as:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Loading GGUF models.&lt;&#x2F;li&gt;
+&lt;li&gt;Managing conversations.&lt;&#x2F;li&gt;
+&lt;li&gt;Maintaining context between messages.&lt;&#x2F;li&gt;
+&lt;li&gt;Configuring generation parameters.&lt;&#x2F;li&gt;
+&lt;li&gt;Saving and restoring states.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;When the goal is simply to add AI to an application, much of this work can be unnecessary.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;memoriaforge&quot;&gt;MemoriaForge&lt;&#x2F;h2&gt;
+&lt;p&gt;MemoriaForge is a lightweight wrapper for llama.cpp designed to provide a simple API that is easy to integrate into C++ projects.&lt;&#x2F;p&gt;
+&lt;p&gt;Its features include:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;C++17-compatible API.&lt;&#x2F;li&gt;
+&lt;li&gt;Support for GGUF models.&lt;&#x2F;li&gt;
+&lt;li&gt;Conversation persistence.&lt;&#x2F;li&gt;
+&lt;li&gt;Custom context injection.&lt;&#x2F;li&gt;
+&lt;li&gt;Configurable generation parameters.&lt;&#x2F;li&gt;
+&lt;li&gt;Precompiled binaries for 32-bit and 64-bit Windows.&lt;&#x2F;li&gt;
+&lt;li&gt;llama.cpp statically integrated into the library.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Thanks to this, there is no need to distribute additional llama.cpp libraries alongside the application.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;first-example&quot;&gt;First Example&lt;&#x2F;h2&gt;
+&lt;p&gt;Suppose we want to create a program capable of answering questions using a local model.&lt;&#x2F;p&gt;
+&lt;p&gt;The required code is surprisingly small:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;#include&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;lt;iostream&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;#include&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;MemoriaForge.h&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; main&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;() {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    MemoriaForge&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;LLMSession&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt; ai&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;        &amp;quot;Qwen3-0.6B-Q8_0.gguf&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;    );&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt;    std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;cout &lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; ai&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;chat&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;Hello!&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; &amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F9E2AF;&quot;&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;endl&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #CBA6F7;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #FAB387;&quot;&gt; 0&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9399B2;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When the program runs, the model is loaded and responds to our message.&lt;&#x2F;p&gt;
+&lt;p&gt;From the developer&#x27;s perspective, working with AI is as simple as calling a method.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;compilation&quot;&gt;Compilation&lt;&#x2F;h2&gt;
+&lt;p&gt;If we use MinGW, we can compile the project with:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;g++&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; main.cpp -Iinclude -Llib -lMemoriaForge -o app.exe&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;For execution, simply place &lt;code&gt;MemoriaForge.dll&lt;&#x2F;code&gt; next to the executable or in a location accessible through the system PATH variable.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;persistent-conversations&quot;&gt;Persistent Conversations&lt;&#x2F;h2&gt;
+&lt;p&gt;One of the most interesting aspects of working with language models is the ability to maintain conversations.&lt;&#x2F;p&gt;
+&lt;p&gt;Instead of treating each query as an independent interaction, MemoriaForge allows message history to be preserved so that the model remembers the conversation context.&lt;&#x2F;p&gt;
+&lt;p&gt;This makes it easier to create:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Virtual assistants.&lt;&#x2F;li&gt;
+&lt;li&gt;Support systems.&lt;&#x2F;li&gt;
+&lt;li&gt;Intelligent NPCs for video games.&lt;&#x2F;li&gt;
+&lt;li&gt;AI-powered productivity tools.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;context-injection&quot;&gt;Context Injection&lt;&#x2F;h2&gt;
+&lt;p&gt;Another useful feature is the ability to provide additional information to the model before generating a response.&lt;&#x2F;p&gt;
+&lt;p&gt;For example:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Technical documentation.&lt;&#x2F;li&gt;
+&lt;li&gt;Text files.&lt;&#x2F;li&gt;
+&lt;li&gt;Knowledge base data.&lt;&#x2F;li&gt;
+&lt;li&gt;User-specific information.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This allows the model to respond using information relevant to the application without requiring retraining.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;generation-configuration&quot;&gt;Generation Configuration&lt;&#x2F;h2&gt;
+&lt;p&gt;MemoriaForge also allows adjusting generation parameters such as:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;temperature = 0.7&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;min_p       = 0.05&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;seed        = 0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;These values control aspects such as creativity, diversity, and reproducibility of responses.&lt;&#x2F;p&gt;
+&lt;p&gt;The default parameters are optimized for Qwen-family models and provide a good balance between coherence and variability.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;use-cases&quot;&gt;Use Cases&lt;&#x2F;h2&gt;
+&lt;p&gt;Once the library is integrated, it is possible to build applications such as:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Local chatbots.&lt;&#x2F;li&gt;
+&lt;li&gt;Personal assistants.&lt;&#x2F;li&gt;
+&lt;li&gt;Programming assistance tools.&lt;&#x2F;li&gt;
+&lt;li&gt;Document query systems.&lt;&#x2F;li&gt;
+&lt;li&gt;Conversational interfaces for existing software.&lt;&#x2F;li&gt;
+&lt;li&gt;Video games with AI-driven characters.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;All of this without relying on external services or sending information to third parties.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;download&quot;&gt;Download&lt;&#x2F;h3&gt;
+&lt;p&gt;You can download the MemoriaForge library from these links:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;canuconde&#x2F;MemoriaForge&#x2F;releases&#x2F;download&#x2F;v1.0.0&#x2F;MemoriaForge.Win64.zip&quot;&gt;Windows64&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;canuconde&#x2F;MemoriaForge&#x2F;releases&#x2F;download&#x2F;v1.0.0&#x2F;MemoriaForge.Win32.zip&quot;&gt;Windows32&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;canuconde&#x2F;MemoriaForge&#x2F;releases&#x2F;download&#x2F;v1.0.0&#x2F;MemoriaForge.Linux64.tar.gz&quot;&gt;Linux64&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;canuconde&#x2F;MemoriaForge&#x2F;releases&#x2F;download&#x2F;v1.0.0&#x2F;memoriaforge_20260620-1_amd64.deb&quot;&gt;Debian pkg&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can also download the source code from the official GitHub repository:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;canuconde.github.io&#x2F;en&#x2F;blog&#x2F;usando-ia-en-c&#x2F;https&#x2F;&#x2F;github.com&#x2F;canuconde&#x2F;MediaForge&quot;&gt;MediaForge&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Integrating language models into C++ applications no longer requires dealing with complex APIs or building the entire infrastructure from scratch.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks to libraries such as MemoriaForge, it is possible to load a GGUF model, start a conversation, and obtain responses with just a few lines of code.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are developing software in C++ and want to experiment with local AI, tools like this allow you to focus on the application rather than the internal details of the inference engine.&lt;&#x2F;p&gt;
+&lt;p&gt;The barrier to entry for incorporating artificial intelligence into native projects has never been lower.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
